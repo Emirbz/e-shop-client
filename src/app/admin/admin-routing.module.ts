@@ -5,6 +5,7 @@ import {DashboardComponent} from './dashboard/dashboard.component';
 import {CategoriesListComponent} from './categories-list/categories-list.component';
 import {ListProductComponent} from './products/list-product/list-product.component';
 import {AddProductComponent} from './products/add-product/add-product.component';
+import {OrdersComponent} from './orders/orders.component';
 
 const adminRouting: Routes = [
   {
@@ -27,6 +28,10 @@ const adminRouting: Routes = [
       {
         path: 'products/create',
         component: AddProductComponent,
+      },
+      {
+        path: 'orders',
+        component: OrdersComponent,
       },
     ]
   },
