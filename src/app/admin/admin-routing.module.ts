@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {LayoutAdminComponent} from '../layout/components/layout-admin/layout-admin.component';
-import {DashboardComponent} from './dashboard/dashboard.component';
-import {CategoriesListComponent} from './categories-list/categories-list.component';
-import {ListProductComponent} from './products/list-product/list-product.component';
-import {AddProductComponent} from './products/add-product/add-product.component';
-import {OrdersComponent} from './orders/orders.component';
+import {DashboardComponent} from './components/dashboard/dashboard.component';
+import {CategoriesListComponent} from './components/categories-list/categories-list.component';
+import {ListProductComponent} from './components/list-product/list-product.component';
+import {OrdersComponent} from './components/orders/orders.component';
+import {AddProductComponent} from './components/add-product/add-product.component';
+
 
 const adminRouting: Routes = [
   {
