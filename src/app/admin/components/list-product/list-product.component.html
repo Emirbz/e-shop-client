@@ -1,295 +1,205 @@
 
-  <!-- Container-fluid starts-->
-  <div class="container-fluid">
-    <div class="page-header">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="page-header-left">
-            <h3>Product List
-              <small>Multikart Admin panel</small>
-            </h3>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <ol class="breadcrumb pull-right">
-            <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-            <li class="breadcrumb-item">Physical</li>
-            <li class="breadcrumb-item active">Product List</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Container-fluid Ends-->
 
-  <!-- Container-fluid starts-->
-  <div class="container-fluid">
-    <div class="row products-admin ratio_asos">
-      <div class="col-xl-3 col-sm-6">
-        <div class="card">
-          <div class="card-body product-box">
-            <div class="img-wrapper">
-              <div class="front">
-                <a href="#"><img src="assets/images/pro3/34.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                <div class="product-hover">
-                  <ul>
-                    <li>
-                      <button class="btn" type="button" data-original-title="" title=""><i class="ti-pencil-alt"></i></button>
-                    </li>
-                    <li>
-                      <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-original-title="" title=""><i class="ti-trash"></i></button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="product-detail">
-              <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-              <a href="#">
-                <h6>Slim Fit Cotton Shirt</h6>
-              </a>
-              <h4>$500.00 <del>$600.00</del></h4>
-              <ul class="color-variant">
-                <li class="bg-light0"></li>
-                <li class="bg-light1"></li>
-                <li class="bg-light2"></li>
-              </ul>
-            </div>
-          </div>
+<!--&lt;!&ndash; Container-fluid starts&ndash;&gt;-->
+<!--<div class="container-fluid">-->
+<!--  <div class="page-header">-->
+<!--    <div class="row">-->
+<!--      <div class="col-lg-6">-->
+<!--        <div class="page-header-left">-->
+<!--          <h3>Category-->
+<!--            <small>Multikart Admin panel</small>-->
+<!--          </h3>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="col-lg-6">-->
+<!--        <ol class="breadcrumb pull-right">-->
+<!--          <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>-->
+<!--          <li class="breadcrumb-item active">Products</li>-->
+<!--        </ol>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; Container-fluid Ends&ndash;&gt;-->
+
+<!--&lt;!&ndash; Container-fluid starts&ndash;&gt;-->
+<!--<div class="container-fluid">-->
+<!--  <div class="row">-->
+<!--    <div class="col-sm-12">-->
+<!--      <div class="card">-->
+<!--        <div class="card-header">-->
+<!--          <h5 class="d-inline-block">Products </h5>-->
+
+
+<!--        </div>-->
+
+<!--        <div class="card-body">-->
+<!--          <div class="btn-popup pull-right">-->
+
+<!--          </div>-->
+
+<!--          <ngx-datatable-->
+<!--            class="bootstrap"-->
+<!--            [rows]="loadedProducts"-->
+<!--            [columns]="columns"-->
+<!--            [columnMode]="ColumnMode.force"-->
+<!--            [headerHeight]="40"-->
+<!--            [summaryPosition]="'bottom'"-->
+<!--            [footerHeight]="40"-->
+<!--            [limit]="10"-->
+
+<!--            rowHeight="auto"-->
+<!--            [reorderable]="reorderable"-->
+<!--          >-->
+<!--            <ngx-datatable-column style="display: flex;align-items: center" *ngFor="let col of columns"-->
+<!--                                  [name]="col.name"-->
+<!--                                  [prop]="col.prop"></ngx-datatable-column>-->
+<!--            <ngx-datatable-column name="Sizes">-->
+<!--              <ng-template let-row="row" ngx-datatable-cell-template>-->
+<!--                <div class="d-block">-->
+<!--                <ng-container *ngFor=" let s of row['sizes']">-->
+<!--                  {{s?.name }} : {{ s?.quantity }}-->
+<!--                </ng-container>-->
+
+<!--                </div>-->
+
+<!--              </ng-template>-->
+<!--            </ngx-datatable-column>-->
+
+<!--            <ngx-datatable-column name="Categories">-->
+<!--              <ng-template let-row="row" ngx-datatable-cell-template>-->
+<!--                <div class="d-block">-->
+<!--                  <ng-container *ngFor=" let c of row['category']">-->
+<!--                    {{c?.name }}-->
+<!--                  </ng-container>-->
+
+<!--                </div>-->
+
+<!--              </ng-template>-->
+<!--            </ngx-datatable-column>-->
+<!--            <ngx-datatable-column name="Images">-->
+<!--              <ng-template let-row="row" ngx-datatable-cell-template>-->
+<!--                <div class="d-block">-->
+<!--                  <img *ngFor="let p of row.pictures" [src]="p.url" alt=""-->
+<!--                       class="img-fluid img-30 me-2 blur-up lazyloaded">-->
+
+<!--                </div>-->
+
+<!--              </ng-template>-->
+<!--            </ngx-datatable-column>-->
+
+<!--            <ngx-datatable-column name="Action">-->
+<!--              <ng-template ngx-datatable-cell-template>-->
+<!--                <div class="d-flex">-->
+<!--                  <button style="padding: 3px 8px" class="btn btn-primary mx-1"><i class="fa fa-pencil"></i></button>-->
+<!--                  <button style="padding: 3px 8px" class="btn btn-danger mx-1"><i class="fa fa-trash"></i></button>-->
+<!--                </div>-->
+<!--              </ng-template>-->
+<!--            </ngx-datatable-column>-->
+<!--          </ngx-datatable>-->
+
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+<!--&lt;!&ndash; Container-fluid Ends&ndash;&gt;-->
+
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="page-header-left">
+          <h3>Produits
+            <small>Multikart Admin panel</small>
+          </h3>
         </div>
       </div>
-      <div class="col-xl-3 col-sm-6">
-        <div class="card">
-          <div class="card-body product-box">
-            <div class="img-wrapper">
-              <div class="front">
-                <a href="#"><img src="assets/images/electronics/product/1.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                <div class="product-hover">
-                  <ul>
-                    <li>
-                      <button class="btn" type="button" data-original-title="" title=""><i class="ti-pencil-alt"></i></button>
-                    </li>
-                    <li>
-                      <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-original-title="" title=""><i class="ti-trash"></i></button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="product-detail">
-              <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-              <a href="#">
-                <h6>Slim Fit Cotton Shirt</h6>
-              </a>
-              <h4>$500.00 <del>$600.00</del></h4>
-              <ul class="color-variant">
-                <li class="bg-light0"></li>
-                <li class="bg-light1"></li>
-                <li class="bg-light2"></li>
-              </ul>
-            </div>
-          </div>
-        </div>
+      <div class="col-lg-6">
+        <ol class="breadcrumb pull-right">
+          <li  class="breadcrumb-item"><a routerLink="/admin"  ><i class="fa fa-home" ></i></a></li>
+          <li class="breadcrumb-item">Produits</li>
+        </ol>
       </div>
-      <div class="col-xl-3 col-sm-6">
-        <div class="card">
-          <div class="card-body product-box">
-            <div class="img-wrapper">
-              <div class="lable-block"><span class="lable3">new</span> <span class="lable4">on sale</span></div>
-              <div class="front">
-                <a href="#"><img src="assets/images/furniture/product/4.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                <div class="product-hover">
-                  <ul>
-                    <li>
-                      <button class="btn" type="button" data-original-title="" title=""><i class="ti-pencil-alt"></i></button>
-                    </li>
-                    <li>
-                      <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-original-title="" title=""><i class="ti-trash"></i></button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="product-detail">
-              <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-              <a href="#">
-                <h6>Slim Fit Cotton Shirt</h6>
-              </a>
-              <h4>$500.00 <del>$800.00</del></h4>
-              <ul class="color-variant">
-                <li class="bg-light0"></li>
-                <li class="bg-light1"></li>
-                <li class="bg-light2"></li>
-              </ul>
-            </div>
-          </div>
+    </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h5>Gérer les produits</h5>
         </div>
-      </div>
-      <div class="col-xl-3 col-sm-6">
-        <div class="card">
-          <div class="card-body product-box">
-            <div class="img-wrapper">
-              <div class="front">
-                <a href="#"><img src="assets/images/fashion/product/17.jpg" class="img-fluid bg-img" alt=""></a>
-                <div class="product-hover">
-                  <ul>
-                    <li>
-                      <button class="btn" type="button" data-original-title="" title=""><i class="ti-pencil-alt"></i></button>
-                    </li>
-                    <li>
-                      <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-original-title="" title=""><i class="ti-trash"></i></button>
-                    </li>
-                  </ul>
+        <div class="card-body order-datatable">
+          <table class="display" id="basic-1">
+            <thead>
+            <tr>
+              <th>ID Produit</th>
+              <th>Nom</th>
+              <th>Tailles</th>
+              <th>Sexe</th>
+              <th>Catégories</th>
+              <th>Collection</th>
+              <th>Drop</th>
+              <th>Prix</th>
+              <th>Status</th>
+              <th>Images</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>255</td>
+              <td><span class="badge badge-success">T-Shirt</span></td>
+              <td style="max-width: 15%">
+                <div class="d-flex">
+                  XL: 50 | S: 30 | 3XL: 500 | XL: 50 | S: 30 | 3XL: 500
                 </div>
-              </div>
-            </div>
-            <div class="product-detail">
-              <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-              <a href="#">
-                <h6>Slim Fit Cotton Shirt</h6>
-              </a>
-              <h4>$500.00 <del>$650.00</del></h4>
-              <ul class="color-variant">
-                <li class="bg-light0"></li>
-                <li class="bg-light1"></li>
-                <li class="bg-light2"></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-sm-6">
-        <div class="card">
-          <div class="card-body product-box">
-            <div class="img-wrapper">
-              <div class="front">
-                <a href="#"><img src="assets/images/furniture/product/3.jpg" class="img-fluid bg-img" alt=""></a>
-                <div class="product-hover">
-                  <ul>
-                    <li>
-                      <button class="btn" type="button" data-original-title="" title=""><i class="ti-pencil-alt"></i></button>
-                    </li>
-                    <li>
-                      <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-original-title="" title=""><i class="ti-trash"></i></button>
-                    </li>
-                  </ul>
+              </td>
+              <td>
+               Hommes
+              </td>
+              <td>
+                T-shirt | Sweat | Pantalon
+              </td>
+              <td>
+                Hiver
+              </td>
+              <td>True</td>
+              <td>5280 DT</td>
+              <td>Disponible</td>
+              <td>
+                <div class="d-flex">
+                  <img src="assets/images/electronics/product/25.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
+                  <img src="assets/images/electronics/product/25.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
+                  <img src="assets/images/electronics/product/25.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
+                  <img src="assets/images/electronics/product/25.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
+                  <img src="assets/images/electronics/product/25.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
+
                 </div>
-              </div>
-            </div>
-            <div class="product-detail">
-              <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-              <a href="#">
-                <h6>Slim Fit Cotton Shirt</h6>
-              </a>
-              <h4>$500.00 <del>$650.00</del></h4>
-              <ul class="color-variant">
-                <li class="bg-light0"></li>
-                <li class="bg-light1"></li>
-                <li class="bg-light2"></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-sm-6">
-        <div class="card">
-          <div class="card-body product-box">
-            <div class="img-wrapper">
-              <div class="front">
-                <a href="#"><img src="assets/images/fashion/pro/1.jpg" class="img-fluid bg-img" alt=""></a>
-                <div class="product-hover">
-                  <ul>
-                    <li>
-                      <button class="btn" type="button" data-original-title="" title=""><i class="ti-pencil-alt"></i></button>
-                    </li>
-                    <li>
-                      <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-original-title="" title=""><i class="ti-trash"></i></button>
-                    </li>
-                  </ul>
+              </td>
+              <td>
+                <div class="d-flex">
+                  <button style="padding: 3px 8px" class="btn btn-primary mx-1"><i class="fa fa-pencil"></i></button>
+                  <button data-toggle="modal" data-target="#delete-modal" style="padding: 3px 8px" class="btn btn-danger mx-1"><i class="fa fa-trash"></i></button>
                 </div>
-              </div>
-            </div>
-            <div class="product-detail">
-              <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-              <a href="#">
-                <h6>Slim Fit Cotton Shirt</h6>
-              </a>
-              <h4>$500.00 <del>$650.00</del></h4>
-              <ul class="color-variant">
-                <li class="bg-light0"></li>
-                <li class="bg-light1"></li>
-                <li class="bg-light2"></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-sm-6">
-        <div class="card">
-          <div class="card-body product-box">
-            <div class="img-wrapper">
-              <div class="front">
-                <a href="#"><img src="assets/images/furniture/product/10.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                <div class="product-hover">
-                  <ul>
-                    <li>
-                      <button class="btn" type="button" data-original-title="" title=""><i class="ti-pencil-alt"></i></button>
-                    </li>
-                    <li>
-                      <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-original-title="" title=""><i class="ti-trash"></i></button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="product-detail">
-              <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-              <a href="#">
-                <h6>Slim Fit Cotton Shirt</h6>
-              </a>
-              <h4>$500.00 <del>$600.00</del></h4>
-              <ul class="color-variant">
-                <li class="bg-light0"></li>
-                <li class="bg-light1"></li>
-                <li class="bg-light2"></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-xl-3 col-sm-6">
-        <div class="card">
-          <div class="card-body product-box">
-            <div class="img-wrapper">
-              <div class="front">
-                <a href="#"><img src="assets/images/goggles/product/4.jpg" class="img-fluid blur-up lazyload bg-img" alt=""></a>
-                <div class="product-hover">
-                  <ul>
-                    <li>
-                      <button class="btn" type="button" data-original-title="" title=""><i class="ti-pencil-alt"></i></button>
-                    </li>
-                    <li>
-                      <button class="btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCenter" data-original-title="" title=""><i class="ti-trash"></i></button>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-            <div class="product-detail">
-              <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-              <a href="#">
-                <h6>Slim Fit Cotton Shirt</h6>
-              </a>
-              <h4>$500.00 <del>$600.00</del></h4>
-              <ul class="color-variant">
-                <li class="bg-light0"></li>
-                <li class="bg-light1"></li>
-                <li class="bg-light2"></li>
-              </ul>
-            </div>
-          </div>
+              </td>
+            </tr>
+
+
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
-  <!-- Container-fluid Ends-->
+</div>
+<!-- Container-fluid Ends-->
+
+
+

@@ -6,6 +6,8 @@ import {CategoriesListComponent} from './components/categories-list/categories-l
 import {ListProductComponent} from './components/list-product/list-product.component';
 import {OrdersComponent} from './components/orders/orders.component';
 import {AddProductComponent} from './components/add-product/add-product.component';
+import {SalesListComponent} from './components/sales-list/sales-list.component';
+import {SizesListComponent} from './components/sizes-list/sizes-list.component';
 
 
 const adminRouting: Routes = [
@@ -34,6 +36,14 @@ const adminRouting: Routes = [
         path: 'orders',
         component: OrdersComponent,
       },
+      {
+        path: 'sale',
+        component: SalesListComponent,
+      },
+      {
+        path: 'sizes',
+        component: SizesListComponent,
+      }
     ]
   },
 ];

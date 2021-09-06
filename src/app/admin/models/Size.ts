@@ -1,7 +1,6 @@
 import Picture from './Picture';
 
-export default class Category {
+export default class Size {
   id?: number;
   name?: string;
-  picture?: Picture;
 }

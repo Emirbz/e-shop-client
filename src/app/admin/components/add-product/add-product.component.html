@@ -4,16 +4,15 @@
       <div class="row">
         <div class="col-lg-6">
           <div class="page-header-left">
-            <h3>Add Products
-              <small>Multikart Admin panel</small>
+            <h3>Ajout d'un produit
             </h3>
           </div>
         </div>
         <div class="col-lg-6">
           <ol class="breadcrumb pull-right">
-            <li class="breadcrumb-item"><a href="index.html"><i data-feather="home"></i></a></li>
-            <li class="breadcrumb-item">Physical</li>
-            <li class="breadcrumb-item active">Add Product</li>
+            <li  class="breadcrumb-item"><a routerLink="/admin"  ><i class="fa fa-home" ></i></a></li>
+            <li class="breadcrumb-item">Produits</li>
+            <li class="breadcrumb-item active">Ajout d'un produit</li>
           </ol>
         </div>
       </div>
@@ -27,7 +26,7 @@
       <div class="col-sm-12">
         <div class="card">
           <div class="card-header">
-            <h5>Add Product</h5>
+            <h5>Ajout d'un produit</h5>
           </div>
           <div class="card-body">
             <div class="row product-adding">
@@ -41,28 +40,38 @@
                     <div class="col-xl-3 xl-50 col-sm-6 col-3">
                       <ul class="file-upload-product">
                         <li>
-                          <img *ngIf="image1" class="box-input-file" (click)="mainImageDisplay=image1" [src]="image1">
-                          <div *ngIf="!image1" class="box-input-file"><input (change)="displayImageToUpload(1,$event)" class="upload" type="file"><i class="fa fa-plus"></i></div>
+                          <img *ngIf="image1Preview.uploaded" class="box-input-file" (click)="mainImageDisplay=image1Preview" [src]="image1Preview.src">
+                          <div *ngIf="!image1Preview.uploaded" class="box-input-file"><input (change)="uploadImage(1,$event)" class="upload" type="file">
+                            <i [ngClass]="!image1Preview.uploading ? 'fa fa-plus' : 'fa fa-spinner fa-pulse'" ></i>
+                          </div>
                         </li>
 
                         <li>
-                          <img *ngIf="image2" class="box-input-file" (click)="mainImageDisplay=image2" [src]="image2">
-                          <div *ngIf="!image2" class="box-input-file"><input (change)="displayImageToUpload(2,$event)" class="upload" type="file"><i class="fa fa-plus"></i></div>
+                          <img *ngIf="image2Preview.uploaded" class="box-input-file" (click)="mainImageDisplay=image2Preview" [src]="image2Preview.src">
+                          <div *ngIf="!image2Preview.uploaded" class="box-input-file"><input (change)="uploadImage(2,$event)" class="upload" type="file">
+                            <i [ngClass]="!image2Preview.uploading ? 'fa fa-plus' : 'fa fa-spinner fa-pulse'" ></i>
+                          </div>
                         </li>
 
                         <li>
-                          <img *ngIf="image3" class="box-input-file" (click)="mainImageDisplay=image3" [src]="image3">
-                          <div *ngIf="!image3" class="box-input-file"><input (change)="displayImageToUpload(3,$event)" class="upload" type="file"><i class="fa fa-plus"></i></div>
+                          <img *ngIf="image3Preview.uploaded" class="box-input-file" (click)="mainImageDisplay=image3Preview" [src]="image3Preview.src">
+                          <div *ngIf="!image3Preview.uploaded" class="box-input-file"><input (change)="uploadImage(3,$event)" class="upload" type="file">
+                            <i [ngClass]="!image3Preview.uploading ? 'fa fa-plus' : 'fa fa-spinner fa-pulse'" ></i>
+                          </div>
                         </li>
 
                         <li>
-                          <img *ngIf="image4" class="box-input-file" (click)="mainImageDisplay=image4" [src]="image4">
-                          <div *ngIf="!image4" class="box-input-file"><input (change)="displayImageToUpload(4,$event)" class="upload" type="file"><i class="fa fa-plus"></i></div>
+                          <img *ngIf="image4Preview.uploaded" class="box-input-file" (click)="mainImageDisplay=image4Preview" [src]="image4Preview.src">
+                          <div *ngIf="!image4Preview.uploaded" class="box-input-file"><input (change)="uploadImage(4,$event)" class="upload" type="file">
+                            <i [ngClass]="!image4Preview.uploading ? 'fa fa-plus' : 'fa fa-spinner fa-pulse'" ></i>
+                          </div>
                         </li>
 
                         <li>
-                          <img *ngIf="image5" class="box-input-file" (click)="mainImageDisplay=image5" [src]="image5">
-                          <div *ngIf="!image5" class="box-input-file"><input (change)="displayImageToUpload(5,$event)" class="upload" type="file"><i class="fa fa-plus"></i></div>
+                          <img *ngIf="image5Preview.uploaded" class="box-input-file" (click)="mainImageDisplay=image5Preview" [src]="image5Preview.src">
+                          <div *ngIf="!image5Preview.uploaded" class="box-input-file"><input (change)="uploadImage(5,$event)" class="upload" type="file">
+                            <i [ngClass]="!image5Preview.uploading ? 'fa fa-plus' : 'fa fa-spinner fa-pulse'" ></i>
+                          </div>
                         </li>
 
 
@@ -73,63 +82,86 @@
                 </div>
               </div>
               <div class="col-xl-7">
-                <form class="needs-validation add-product-form" [formGroup]="productFormGroup">
+                <form class="needs-validation add-product-form" [formGroup]="productFormGroup" #ngForm="ngForm">
                   <div class="form">
-                    <div class="form-group mb-3 row">
-                      <label for="validationCustom01" class="col-xl-3 col-sm-4 mb-0">Title :</label>
+                    <div class="form-group row">
+                      <label  class="col-xl-3 col-sm-4 mb-0">Collection: </label>
                       <div class="col-xl-8 col-sm-7">
-                        <input formControlName="name" class="form-control" id="validationCustom01" type="text" required="">
+                        <select formControlName="collection" class="form-control digits" [class.is-invalid]=" ngForm.submitted && productFormGroup.get('collection').hasError('required')"  name="collection">
+                          <option *ngFor="let c of loadedCollections">{{c}}</option>
+                        </select>
                       </div>
-                      <div class="valid-feedback">Looks good!</div>
                     </div>
                     <div class="form-group row">
-                      <label  class="col-xl-3 col-sm-4 mb-0">Category</label>
+                      <label  class="col-xl-3 col-sm-4 mb-0">Sexe:</label>
                       <div class="col-xl-8 col-sm-7">
-                        <select formControlName="category" (change)="setCategoriesAttributes($event.target)" class="form-control digits" name="category">
-                          <option *ngFor="let s of loadedCategories">{{s.name}}</option>
+                        <select formControlName="gender" class="form-control digits" [class.is-invalid]=" ngForm.submitted &&  productFormGroup.get('gender').hasError('required')"  name="gender">
+                          <option *ngFor="let g of loadedGenders">{{g}}</option>
                         </select>
                       </div>
                     </div>
-                    <div  *ngIf="loadedSubcategories.length>0"  class="form-group row">
-                      <label  class="col-xl-3 col-sm-4 mb-0">Sub category</label>
+                    <div class="form-group row">
+                      <label  class="col-xl-3 col-sm-4 mb-0">Catégories: </label>
                       <div class="col-xl-8 col-sm-7">
-                        <select formControlName="subCategory" class="form-control digits"  name="subCategory">
-                          <option  *ngFor="let s of loadedSubcategories">{{s.name}}</option>
-                        </select>
+                        <ng-multiselect-dropdown
+                          [placeholder]="'Select categories'"
+                          [settings]="CategoryDropdownSettings"
+                          [data]="loadedCategories"
+
+                          formControlName="category"
+                        >
+                        </ng-multiselect-dropdown>
+                          <div *ngIf="ngForm.submitted &&  productFormGroup.get('category').hasError('required')" class="invalid-feedback d-block">Sélectionnez au moins une catégorie</div>
                       </div>
                     </div>
                     <div class="form-group mb-3 row">
-                      <label  class="col-xl-3 col-sm-4 mb-0">Price :</label>
+                      <label for="validationCustom02" class="col-xl-3 col-sm-4 mb-0">Drop:</label>
                       <div class="col-xl-8 col-sm-7">
-                        <input class="form-control" formControlName="price" type="text" required="">
+                        <input   formControlName="drop"  id="validationCustom02" type="checkbox" >
+                      </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                      <label for="validationCustom03" class="col-xl-3 col-sm-4 mb-0">Nom:</label>
+                      <div class="col-xl-8 col-sm-7">
+                        <input formControlName="name" [class.is-invalid]=" ngForm.submitted &&  productFormGroup.get('name').hasError('required')"  class="form-control" id="validationCustom03" type="text" required="">
+                      </div>
+                    </div>
+                    <div class="form-group mb-3 row">
+                      <label   class="col-xl-3 col-sm-4 mb-0">Prix: </label>
+                      <div class="col-xl-8 col-sm-7">
+                        <input class="form-control" [class.is-invalid]=" ngForm.submitted &&  productFormGroup.get('price').hasError('min')"  formControlName="price" type="text" required="">
                       </div>
                     </div>
 
                   </div>
-                  <div class="form">
-                    <ng-container *ngIf="selectedSizes.length>0">
-                    <div class="form-group row">
-                      <label class="col-xl-3 col-sm-4 mb-0">Total Products </label>
+                    <div class="form-group mb-3 row">
+
+                      <label for="validationCustom04" class="col-xl-3 col-sm-4 mb-0">Taille unie:</label>
+                      <div class="col-xl-8 col-sm-7">
+                        <input #uniSize   formControlName="drop"  id="validationCustom04" type="checkbox" >
+                      </div>
                     </div>
-                    <div class="form-group row" *ngFor="let s of selectedSizes">
-                      <label class="col-xl-3 col-sm-4 mb-0">{{s}}</label>
+                    <ng-container *ngIf="!uniSize.checked">
+
+                    <div class="form-group row" *ngFor="let s of clothesSizes">
+                      <label class="col-xl-3 col-sm-4 mb-0">{{s.name}}</label>
                       <fieldset class="qty-box col-xl-9 col-xl-8 col-sm-7">
                         <div class="input-group">
-                          <input formArrayName="size" class="touchspin" type="text" value="0">
+                          <input (change)="updateSizes(s , q.value)"  #q class="form-control" type="text" value="0">
                         </div>
                       </fieldset>
                     </div>
                     </ng-container>
                     <div class="form-group row">
-                      <label class="col-xl-3 col-sm-4">Add Description :</label>
+                      <label class="col-xl-3 col-sm-4">Description:</label>
                       <div class="col-xl-8 col-sm-7 description-sm">
-                        <textarea formControlName="description"   cols="50" rows="4"></textarea>
+                        <textarea [class.is-invalid]=" ngForm.submitted &&  productFormGroup.get('description').hasError('required')"  formControlName="description"   cols="80" rows="4"></textarea>
                       </div>
                     </div>
-                  </div>
+
                   <div class="offset-xl-3 offset-sm-4">
-                    <button (click)="addProduct()" type="submit" class="btn btn-primary">Add</button>
-                    <button type="button" class="btn btn-light">Discard</button>
+                    <button (click)="addProduct()" type="submit" class="btn btn-primary">Sauvegarder</button>
+                    <button type="button" class="btn btn-light" (click)="productFormGroup.reset()">Annuler</button>
                   </div>
                 </form>
               </div>

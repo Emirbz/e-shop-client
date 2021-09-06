@@ -1,18 +1,19 @@
+
 <!-- Container-fluid starts-->
 <div class="container-fluid">
   <div class="page-header">
     <div class="row">
       <div class="col-lg-6">
         <div class="page-header-left">
-          <h3>Categories
+          <h3>Tailles
             <small>Multikart Admin panel</small>
           </h3>
         </div>
       </div>
       <div class="col-lg-6">
         <ol class="breadcrumb pull-right">
-          <li class="breadcrumb-item"><a routerLink="/admin"><i class="fa fa-home"></i></a></li>
-          <li class="breadcrumb-item active">Categories</li>
+          <li  class="breadcrumb-item"><a routerLink="/admin"  ><i class="fa fa-home" ></i></a></li>
+          <li class="breadcrumb-item active">Tailles</li>
         </ol>
       </div>
     </div>
@@ -26,39 +27,34 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-header">
-          <h5 class="d-inline-block">Categories des produits</h5>
-          <button  type="button" class="btn btn-primary f-right" (click)="openModalAddCategory()">Ajouter une categorie
+          <h5 class="d-inline-block">Tailles des produits</h5>
+          <button  type="button" class="btn btn-primary f-right" (click)="openModalAddSize()">Ajouter une taille
           </button>
-
-
         </div>
-
         <div class="card-body order-datatable">
           <table class="display" id="basic-1">
             <thead>
             <tr>
-              <th>ID</th>
+              <th>Id</th>
               <th>Nom</th>
-              <th>Image</th>
               <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let c of loadedCategories">
-              <td>{{c?.id}}</td>
-              <td><span class="badge badge-success">{{c?.name}}</span></td>
+            <tr *ngFor="let s of loadedSizes">
+              <td>{{s?.id}}</td>
               <td>
-                <div class="d-flex">
-                  <img [src]="c?.picture?.url" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
-                </div>
+              {{s?.name}}
               </td>
+
+
               <td>
                 <div class="d-flex">
                   <button
-                   (click)="openModalEditCategory(c)" style="padding: 3px 8px"
-                          class="btn btn-primary mx-1"><i class="fa fa-pencil"></i></button>
-                  <button (click)="openModalDeleteCategory(c)" data-toggle="modal" data-target="#delete-modal"
-                          style="padding: 3px 8px" class="btn btn-danger mx-1"><i class="fa fa-trash"></i></button>
+                    (click)="openModalEditSize(s)"
+                 style="padding: 3px 8px"
+                    class="btn btn-primary mx-1"><i class="fa fa-pencil"></i></button>
+                  <button (click)="openModalDeleteSize(s)" style="padding: 3px 8px" class="btn btn-danger mx-1"><i class="fa fa-trash"></i></button>
                 </div>
               </td>
             </tr>
@@ -72,4 +68,5 @@
   </div>
 </div>
 <!-- Container-fluid Ends-->
+
 

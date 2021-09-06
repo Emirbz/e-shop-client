@@ -1,0 +1,41 @@
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title f-w-600">Ajout d'une catégorie</h5>
+        <button class="btn-close" (click)="closeModal(undefined)" type="button"  aria-label="Close"><span
+          >×</span></button>
+      </div>
+      <div class="modal-body">
+        <form class="needs-validation" #ngForm="ngForm" [formGroup]="categoryFormGroup">
+          <div class="form">
+            <div class="form-group">
+              <label for="validationCustom01" class="mb-1">Nom :</label>
+              <input formControlName="name" class="form-control " id="validationCustom01" type="text">
+              <div *ngIf=" ngForm.submitted &&  categoryFormGroup.get('name').hasError('required')"
+                   class="invalid-feedback d-block">Veuillez saisir un nom pour la catégorie
+              </div>
+            </div>
+
+            <div class="form-group mb-0">
+              <label for="validationCustom02" class="mb-1">Image :</label>
+              <input [hidden]="submittingData && !imageToPersist.name" (change)="uploadImage($event)" formControlName="picture" class="form-control" id="validationCustom02"
+                     type="file">
+              <div *ngIf="submittingData && !imageToPersist.name" class="loader"></div>
+              <i *ngIf="submittingData && !imageToPersist.name" (click)="cancelUpload()" class="fa fa-times" style="font-size: 20px;cursor: pointer;margin-left: 3rem;"></i>
+              <div *ngIf="ngForm.submitted &&  categoryFormGroup.get('picture').hasError('required')"
+                   class="invalid-feedback d-block">Veuillez sélectionner une image
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button [disabled]="submittingData"  class="btn btn-primary" type="submit" (click)="addCategory()"> <i *ngIf="submittingData" class="fa fa-spinner fa-spin"></i>
+              Sauvegarder</button>
+            <button  class="btn btn-secondary" type="button" data-bs-dismiss="modal">Annuler</button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+

@@ -5,8 +5,10 @@ const backURL = 'http://localhost:8083';
 export const environment = {
   production: false,
   apis: {
-    product: backURL + '/ws/chat?room_id=',
-    category: backURL + '/ws/chat?room_id='
+    product: backURL + '/products',
+    category: backURL + '/categories',
+    file: backURL + '/image',
+    size: backURL + '/sizes'
   },
 };
 /*
