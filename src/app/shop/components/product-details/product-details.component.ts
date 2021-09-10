@@ -1,4 +1,9 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {ProductService} from '../../../admin/services/product.service';
+import {ActivatedRoute} from '@angular/router';
+import Product from '../../../admin/models/Product';
+import {CartService} from '../../services/cart.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-product-details',
@@ -6,15 +11,25 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
   styleUrls: ['./product-details.component.scss']
 })
 export class ProductDetailsComponent implements OnInit, AfterViewInit {
+  productHasBeenLoaded = false;
+  loadedProduct: Product;
+  sizeToCart: string;
+  quantityToCart = 0;
+  productToCart: { product: Product, showToast: boolean } = {product: undefined, showToast: false};
+  cartFormGroup: FormGroup;
 
-  constructor() {
+
+  constructor(private formBuilder: FormBuilder, private productService: ProductService, private activeRouter: ActivatedRoute,
+              private cartService: CartService) {
   }
 
   ngOnInit(): void {
+
+    this.loadSingleProduct();
   }
 
   ngAfterViewInit(): void {
-    this.loadScript('assets/js/slick.js');
+
     this.loadScript('assets/js/script.js');
 
 
@@ -29,4 +44,55 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
   }
 
+  private loadSingleProduct() {
+    this.productHasBeenLoaded = false;
+    const id = this.activeRouter.snapshot.params.id;
+    this.productService.getSingleProduct(id).subscribe(p => {
+      this.loadedProduct = p;
+      this.productHasBeenLoaded = true;
+      this.cartFormValidate();
+      this.loadScript('assets/js/slick.js');
+    }, error => {
+      this.productHasBeenLoaded = true;
+
+    });
+  }
+
+  addToCart() {
+    if (this.cartFormGroup.value.quantity === 0 || (!this.sizeToCart && this.loadedProduct?.sizes?.length > 0)) {
+
+      return;
+    } else {
+      const cartProducts = JSON.parse(localStorage.getItem('cartProducts')) as Product[];
+      const p = this.loadedProduct;
+      this.loadedProduct.cart = {size: this.sizeToCart, quantity: this.cartFormGroup.value.quantity};
+      cartProducts.push(p);
+      this.cartService.cartProducts = cartProducts;
+      this.productToCart = {product: p, showToast: true};
+      console.log(this.productToCart);
+      setTimeout(() => {
+        this.productToCart.showToast = false;
+      }, 9000);
+
+    }
+
+
+  }
+
+  setSizeToBuy(text: string) {
+    this.sizeToCart = text;
+    console.log(text);
+
+  }
+
+  private cartFormValidate() {
+    this.cartFormGroup = this.formBuilder.group({
+      quantity: [50, Validators.min(1)]
+    });
+
+  }
+
+  isNumber(value: string) {
+   return /^\d+$/.test(value);
+  }
 }

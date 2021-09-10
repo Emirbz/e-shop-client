@@ -2,11 +2,15 @@ import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CategoryService} from '../../services/category.service';
 import Category from '../../models/Category';
-import Product, {Size} from '../../models/Product';
+import Product, {ProductSize} from '../../models/Product';
 import {ToastrService} from 'ngx-toastr';
 import {FileStorageService} from '../../services/file-storage.service';
 import Image from '../../models/Picture';
 import {ProductService} from '../../services/product.service';
+import {SizeService} from '../../services/size.service';
+import Size from '../../models/Size';
+import {Router} from '@angular/router';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-add-product',
@@ -15,15 +19,17 @@ import {ProductService} from '../../services/product.service';
 })
 export class AddProductComponent implements OnInit, AfterViewInit {
 
-  sizesToPersist: Size[] = [];
-  selectedSizes: Size[] = [];
-  shoesSizes: Size[] = [];
-  clothesSizes: Size[] = [];
+  sizesToPersist: ProductSize[] = [];
+  loadedSizes: Size[] = [];
+  loadedStatus: string[] = [];
+
   loadedCategories: Category[] = [];
   loadedCollections: string[] = [];
   loadedGenders: string[] = [];
   productFormGroup: FormGroup;
-  selectedCategory: Category;
+  submittingData = false;
+  uploadSubscription: Subscription;
+
   /* ---------- images ----------- */
   image1Preview: { src: string | ArrayBuffer, uploading: boolean, uploaded: boolean } = {src: '', uploading: false, uploaded: false};
   image2Preview: { src: string | ArrayBuffer, uploading: boolean, uploaded: boolean } = {src: '', uploading: false, uploaded: false};
@@ -40,13 +46,16 @@ export class AddProductComponent implements OnInit, AfterViewInit {
 
   constructor(private categoryService: CategoryService,
               private toastr: ToastrService,
+              private routerLink: Router,
               private formBuilder: FormBuilder,
               private fileStorageService: FileStorageService,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private sizeService: SizeService) {
   }
 
   ngOnInit(): void {
     this.loadCategories();
+    this.loadSizes();
     this.productFormValidate();
   }
 
@@ -65,22 +74,13 @@ export class AddProductComponent implements OnInit, AfterViewInit {
   loadCategories() {
     this.categoryService.getCategories().subscribe(categories => {
       this.loadedCategories = categories;
-
     });
 
   }
 
-  setCategoriesAttributes(event) {
-    /* const catName = event.value;
-     this.loadedSubcategories = this.loadedCategories.filter(cat => cat.name === catName)[0].subCategory;
-     console.log(this.loadedSubcategories);
-     this.selectedSizes = catName === 'cat1' ? this.shoesSizes : this.clothesSizes;
-     console.log(this.selectedSizes);
- */
-
-  }
 
   uploadImage(id: number, event) {
+    this.submittingData = true;
     switch (id) {
       case 1:
         this.image1Preview.uploading = true;
@@ -105,6 +105,7 @@ export class AddProductComponent implements OnInit, AfterViewInit {
     }
     const file = event.target.files[0];
     this.fileStorageService.upload(file).subscribe(value => {
+      this.submittingData = false;
       const index = this.imagesToPersist.findIndex(x => x.id === id);
       if (index > -1) {
         this.imagesToPersist[index].name = value.fileName;
@@ -115,6 +116,8 @@ export class AddProductComponent implements OnInit, AfterViewInit {
       }
       this.previewImageImage(id, file);
 
+    }, error => {
+      this.submittingData = false;
     });
 
   }
@@ -132,15 +135,15 @@ export class AddProductComponent implements OnInit, AfterViewInit {
       itemsShowLimit: 3,
       allowSearchFilter: this.ShowFilter
     };
-    // init t-shirts sizes
-    this.clothesSizes = [{name: 'XS'}, {name: 'S'}, {name: 'M'}, {name: 'L'}, {name: 'XL'}, {name: 'XXL'}, {name: '3XL'}];
-    this.clothesSizes.map(c => c.quantity = 0);
 
     // init collections
-    this.loadedCollections = ['Summer', 'Winter'];
+    this.loadedCollections = ['Été', 'Hiver', 'Printemps', 'Automne'];
 
     // init genders
-    this.loadedGenders = ['Men', 'Women', 'Unisex'];
+    this.loadedGenders = ['Homme', 'Femme', 'Unisexe'];
+
+    // init status
+    this.loadedStatus = ['Disponible', 'Hors stock'];
 
 
     this.productFormGroup = this.formBuilder.group({
@@ -148,9 +151,10 @@ export class AddProductComponent implements OnInit, AfterViewInit {
       gender: [this.loadedGenders[0], Validators.required],
       collection: [this.loadedCollections[0], Validators.required],
       price: [0, Validators.min(1)],
-      category: ['', Validators.required],
+      categories: ['', Validators.required],
       description: ['', Validators.required],
       drop: [false, Validators.required],
+      status: [this.loadedStatus[0], Validators.required],
     });
   }
 
@@ -159,6 +163,7 @@ export class AddProductComponent implements OnInit, AfterViewInit {
     if (!this.productFormGroup.valid) {
       return;
     } else {
+      this.submittingData = true;
       // get formGroup values
       const product = this.productFormGroup.value as Product;
       // map sizes
@@ -166,14 +171,23 @@ export class AddProductComponent implements OnInit, AfterViewInit {
       product.sizes = this.sizesToPersist;
 
       // map images
-      product.pictures = [];
+      {
+        product.pictures = [];
+      }
       this.imagesToPersist.forEach(img => {
         product.pictures.push({name: img.name});
       });
-      this.productService.addProduct(product).subscribe(rep => {
+      this.uploadSubscription = this.productService.addProduct(product).subscribe(rep => {
         if (rep) {
-          this.showToast('SUCCESS', 'Product Added', 'Your product has been added successfully');
+          this.showToast('SUCCESS', 'Produit ajouté', 'Votre produit a été ajouté');
+          this.submittingData = false;
+          this.routerLink.navigate(['/admin/products/list']);
+
         }
+      }, error => {
+        this.submittingData = false;
+        this.showToast('ERROR', 'Produit non ajouté', 'Une erreur s\'est produite');
+
       });
 
     }
@@ -186,12 +200,12 @@ export class AddProductComponent implements OnInit, AfterViewInit {
 
   updateSizes(s: Size, value: string) {
     this.sizesToPersist = [];
-    const itemIndex = this.sizesToPersist.findIndex(item => item.name === s.name);
+    const itemIndex = this.sizesToPersist.findIndex(item => item.size.name === s.name);
     if (itemIndex > -1) {
       this.sizesToPersist[itemIndex].quantity = +value;
     } else {
 
-      this.sizesToPersist.push({name: s.name, quantity: +value});
+      this.sizesToPersist.push({size: {name: s.name, id: s.id}, quantity: +value});
     }
   }
 
@@ -247,5 +261,43 @@ export class AddProductComponent implements OnInit, AfterViewInit {
       }
     };
 
+  }
+
+  private loadSizes() {
+    this.sizeService.getSizes().subscribe(s => {
+      this.loadedSizes = s;
+    });
+  }
+
+  cancelUpload(i: number) {
+    this.submittingData = false;
+    switch (i) {
+      case 1:
+        this.image1Preview.uploading = false;
+        this.image1Preview.uploaded = false;
+        break;
+      case 2:
+        this.image2Preview.uploading = false;
+        this.image2Preview.uploaded = false;
+        break;
+      case 3:
+        this.image3Preview.uploading = false;
+        this.image3Preview.uploaded = false;
+        break;
+      case 4:
+        this.image4Preview.uploading = false;
+        this.image4Preview.uploaded = false;
+        break;
+      case 5:
+        this.image5Preview.uploading = false;
+        this.image5Preview.uploaded = false;
+        break;
+
+
+    }
+    if (this.uploadSubscription){
+
+      this.uploadSubscription.unsubscribe();
+    }
   }
 }

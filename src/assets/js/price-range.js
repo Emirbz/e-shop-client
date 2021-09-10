@@ -1635,7 +1635,7 @@
         // Service methods
 
         toggleInput: function() {
-            this.$cache.input.toggleClass("irs-hidden-input");
+         //   this.$cache.input.toggleClass("irs-hidden-input");
         },
 
         /**
@@ -2382,7 +2382,7 @@ $(function() {
         $inputTo = $(".js-input-to"),
         instance,
         min = 0,
-        max = 1500,
+        max = 800,
         from = 0,
         to = 0;
 
@@ -2395,7 +2395,7 @@ $(function() {
         prefix: '$',
         onStart: updateInputs,
         onChange: updateInputs,
-        step: 100,
+        step: 1,
         prettify_enabled: true,
         prettify_separator: ".",
         values_separator: " - ",

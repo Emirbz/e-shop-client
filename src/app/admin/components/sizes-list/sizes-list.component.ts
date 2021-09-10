@@ -16,8 +16,9 @@ export class SizesListComponent implements OnInit, AfterViewInit {
   loadedSizes: Size[] = [];
   sizeToDelete: Size = {};
   sizeToEdit: Size = {};
+   sizesHasBeenLoaded = false;
 
-  constructor(private sizeService: SizeService,private modalService:NgbModal) {
+  constructor(private sizeService: SizeService, private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
@@ -43,6 +44,10 @@ export class SizesListComponent implements OnInit, AfterViewInit {
   private loadSizes() {
     this.sizeService.getSizes().subscribe(c => {
       this.loadedSizes = c;
+      this.sizesHasBeenLoaded = true;
+      this.initDataTable();
+    }, error => {
+      this.sizesHasBeenLoaded = true;
     });
   }
 
@@ -96,5 +101,18 @@ export class SizesListComponent implements OnInit, AfterViewInit {
       }
 
     });
+  }
+
+
+
+  private initDataTable() {
+    setTimeout(() => { // @ts-ignore
+      $('#sizes_list').DataTable({
+        language: {
+          url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json'
+        }
+      });
+    }, 100);
+
   }
 }

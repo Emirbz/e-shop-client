@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-lg-6">
         <div class="page-header-left">
-          <h3>Promotions
+          <h3>Tailles
             <small>Multikart Admin panel</small>
           </h3>
         </div>
@@ -13,8 +13,7 @@
       <div class="col-lg-6">
         <ol class="breadcrumb pull-right">
           <li  class="breadcrumb-item"><a routerLink="/admin"  ><i class="fa fa-home" ></i></a></li>
-          <li class="breadcrumb-item">Promotions</li>
-          <li class="breadcrumb-item active">Orders</li>
+          <li class="breadcrumb-item active">Promotions</li>
         </ol>
       </div>
     </div>
@@ -28,53 +27,42 @@
     <div class="col-sm-12">
       <div class="card">
         <div class="card-header">
-          <h5>Liste des promotions</h5>
+          <h5 class="d-inline-block">Promotions des produits</h5>
+
         </div>
         <div class="card-body order-datatable">
-          <table class="display" id="basic-1">
+          <table *ngIf="salesHasBeenLoaded" class="display" id="sales_list">
             <thead>
             <tr>
-              <th>Produit</th>
+              <th>Id</th>
               <th>Date de début</th>
               <th>Date fin</th>
-              <th>Réduction</th>
+              <th>Pourcentage</th>
               <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
+            <tr *ngFor="let s of loadedSales">
+              <td>{{s?.id}}</td>
+              <td>
+                {{s?.startDate  | date: 'dd/MM/yyyy HH:mm'}}
+              </td>
+              <td>
+                {{s?.endDate  | date: 'dd/MM/yyyy HH:mm'}}
+              </td>
+              <td>
+                {{s?.percentage  | number}}%
+              </td>
+
+
               <td>
                 <div class="d-flex">
-                  <img src="assets/images/electronics/product/25.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
+                  <button
+                    (click)="openModalEditSale(s)"
+                    style="padding: 3px 8px"
+                    class="btn btn-primary mx-1"><i class="fa fa-pencil"></i></button>
+                  <button (click)="openModalDeleteSale(s)" style="padding: 3px 8px" class="btn btn-danger mx-1"><i class="fa fa-trash"></i></button>
                 </div>
-              </td>
-
-
-              <td><span class="badge badge-success">Delivered</span></td>
-              <td>Dec 10,18</td>
-              <td>Dec 10,18</td>
-              <td>
-              <div class="d-flex">
-                <button style="padding: 3px 8px" class="btn btn-primary mx-1"><i class="fa fa-pencil"></i></button>
-                <button style="padding: 3px 8px" class="btn btn-danger mx-1"><i class="fa fa-trash"></i></button>
-              </div>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <div class="d-flex">
-                  <img src="assets/images/electronics/product/12.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
-                </div>
-              </td>
-              <td><span class="badge badge-success">Paid</span></td>
-
-              <td>Feb 15,18</td>
-              <td>Feb 15,18</td>
-              <td>
-              <div class="d-flex">
-                <button style="padding: 3px 8px" class="btn btn-primary mx-1"><i class="fa fa-pencil"></i></button>
-                <button style="padding: 3px 8px" data-toggle="modal" data-target="#delete-modal" class="btn btn-danger mx-1"><i class="fa fa-trash"></i></button>
-              </div>
               </td>
             </tr>
 
@@ -87,4 +75,5 @@
   </div>
 </div>
 <!-- Container-fluid Ends-->
-<app-delete-confirmation [id]="'5'" [type]="'Promotion'"></app-delete-confirmation>
+
+

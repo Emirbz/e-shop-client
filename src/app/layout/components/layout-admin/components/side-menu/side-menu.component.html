@@ -25,7 +25,7 @@
             </a>
           </li>
           <li>
-            <a  routerLinkActive="active"  [routerLink]="['/admin/products']"><i class="fa fa-circle"></i>
+            <a  routerLinkActive="active"  [routerLink]="['/admin/products/list']"><i class="fa fa-circle"></i>
               <span>Liste des produits</span>
             </a>
           </li>
@@ -34,13 +34,17 @@
               <span>Tailles</span>
             </a>
           </li>
+          <li>
+            <a  routerLinkActive="active"  [routerLink]="['/admin/sale']"><i class="fa fa-circle"></i>
+              <span>Promotions</span>
+            </a>
+          </li>
 
         </ul>
       </li>
       <li><a class="sidebar-header"  routerLinkActive="active"  [routerLink]="['/admin/orders']"><i data-feather="dollar-sign"></i><span>Orders</span></a>
       </li>
-      <li><a class="sidebar-header"  routerLinkActive="active"  [routerLink]="['/admin/sale']"><i data-feather="percent"></i><span>Sale</span></a>
-      </li>
+
 
 
 

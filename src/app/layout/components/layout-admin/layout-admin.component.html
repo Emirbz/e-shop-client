@@ -1,5 +1,6 @@
-<div class="page-wrapper">
-  <app-header></app-header>
+
+<div *ngIf="!router.url.includes('login')"  class="page-wrapper">
+  <app-header ></app-header>
   <div class="page-body-wrapper">
     <app-side-menu></app-side-menu>
     <div class="page-body">
@@ -7,3 +8,4 @@
     </div>
   </div>
 </div>
+<router-outlet *ngIf="router.url.includes('login')" ></router-outlet>

@@ -6,4 +6,39 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+@media (min-width: 1430px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+
+
+h4{
+  font-size: 18px!important;
+  text-transform: capitalize!important;
+  font-weight: 400!important;
+  letter-spacing: 0.03em!important;
+  line-height: 1!important;
+}
+.main-menu .menu-right .icon-nav .onhover-div .show-div.shopping-cart li .buttons a {
+  font-size: 16px!important;
+  color: #333333!important;
+  text-transform: capitalize!important;
+  font-weight: 700!important;
+}
+h5{
+  font-size: 16px!important;
+  font-weight: 400!important;
+  color: #222222!important;
+  line-height: 24px!important;
+  letter-spacing: 0.05em!important;
+}
+
+.btn:hover{
+
+  background-position: inherit!important;
+
+}
+
+
 

@@ -32,7 +32,7 @@
           </button>
         </div>
         <div class="card-body order-datatable">
-          <table class="display" id="basic-1">
+          <table *ngIf="sizesHasBeenLoaded" class="display" id="sizes_list">
             <thead>
             <tr>
               <th>Id</th>

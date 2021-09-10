@@ -19,10 +19,14 @@ import {EditCategoryComponent} from './modals/edit-category/edit-category.compon
 import {AddSizeComponent} from './modals/add-size/add-size.component';
 import {EditSizeComponent} from './modals/edit-size/edit-size.component';
 import {NgbModalModule} from '@ng-bootstrap/ng-bootstrap';
+import { EditProductComponent } from './components/edit-product/edit-product.component';
+import { AddSaleComponent } from './modals/add-sale/add-sale.component';
+import { EditSaleComponent } from './modals/edit-sale/edit-sale.component';
+import { LoginComponent } from './components/login/login.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent, CategoriesListComponent, AddProductComponent, ListProductComponent, OrdersComponent, SalesListComponent, SizesListComponent, DeleteConfirmationComponent, AddCategoryComponent, EditCategoryComponent, AddSizeComponent, EditSizeComponent],
+  declarations: [DashboardComponent, CategoriesListComponent, AddProductComponent, ListProductComponent, OrdersComponent, SalesListComponent, SizesListComponent, DeleteConfirmationComponent, AddCategoryComponent, EditCategoryComponent, AddSizeComponent, EditSizeComponent, EditProductComponent, AddSaleComponent, EditSaleComponent, LoginComponent],
   imports: [
     CommonModule,
     AdminRoutingModule,

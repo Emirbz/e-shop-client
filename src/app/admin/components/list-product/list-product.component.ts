@@ -3,6 +3,12 @@ import {FormGroup} from '@angular/forms';
 import {ColumnMode} from '@swimlane/ngx-datatable';
 import Product from '../../models/Product';
 import {ProductService} from '../../services/product.service';
+import {AddCategoryComponent} from '../../modals/add-category/add-category.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {AddSaleComponent} from '../../modals/add-sale/add-sale.component';
+import set = Reflect.set;
+import Category from '../../models/Category';
+import {DeleteConfirmationComponent} from '../../modals/delete-confirmation/delete-confirmation.component';
 
 @Component({
   selector: 'app-list-product',
@@ -11,25 +17,11 @@ import {ProductService} from '../../services/product.service';
 })
 export class ListProductComponent implements OnInit, AfterViewInit {
 
-  ColumnMode = ColumnMode;
-  reorderable = true;
-  categoryFormGroup: FormGroup;
   loadedProducts: Product[] = [];
+  productsHasBeenLoaded = false;
 
 
-  columns = [
-    {prop: 'id', name: 'ID', width: 350},
-    {prop: 'name', name: 'Name'},
-    {prop: 'description', name: 'Description'},
-    {prop: 'gender', name: 'Gender'},
-    {prop: 'collection', name: 'Collection'},
-    {prop: 'drop', name: 'Drop'},
-    {prop: 'price', name: 'Price'},
-    {prop: 'status', name: 'Status'},
-  ];
-
-
-  constructor(private productService: ProductService) {
+  constructor(private productService: ProductService, private modalService: NgbModal) {
   }
 
   ngAfterViewInit(): void {
@@ -50,9 +42,68 @@ export class ListProductComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit(): void {
+    this.loadProducts();
+
+  }
+
+  loadProducts() {
+    this.productsHasBeenLoaded = false;
     this.productService.getAllProducts().subscribe(p => {
       this.loadedProducts = p.content;
+      this.productsHasBeenLoaded = true;
+      this.initDataTable();
+    }, error => {
+      this.productsHasBeenLoaded = true;
     });
+  }
+
+
+  openModalAddSale(p: Product) {
+    const modalRef = this.modalService.open(
+      AddSaleComponent
+    );
+    // modalRef.result.then((c) => {
+    //   if (c !== undefined) {
+    //     this.loadedCategories.push(c);
+    //   }
+    //
+    // });
+    modalRef.componentInstance.product = p;
+
+
+  }
+
+  private initDataTable() {
+    setTimeout(() => { // @ts-ignore
+      $('#products_list').DataTable({
+        language: {
+          url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json'
+        }
+      });
+    }, 100);
+
+  }
+
+  openModalDeleteProduct(prod: Product) {
+    const modalRef = this.modalService.open(
+      DeleteConfirmationComponent
+    );
+    modalRef.result.then((c) => {
+      if (c !== undefined) {
+        this.removeProduct(c);
+      }
+
+    });
+    modalRef.componentInstance.type = 'Produit';
+    modalRef.componentInstance.id = prod.id;
+
+
+  }
+
+
+  removeProduct(c: Category) {
+    const indexToRemove = this.loadedProducts.map(item => item.id).indexOf(c.id);
+    this.loadedProducts.splice(indexToRemove, 1);
   }
 
 }

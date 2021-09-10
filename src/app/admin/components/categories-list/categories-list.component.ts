@@ -21,6 +21,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit {
 
   categoryToDelete: Category;
   categoryToEdit: Category = {};
+   categoriesHasBeenLoaded= false;
 
   constructor(private categoryService: CategoryService, private modalService: NgbModal) {
 
@@ -53,9 +54,12 @@ export class CategoriesListComponent implements OnInit, AfterViewInit {
   private loadCategories() {
     this.categoryService.getCategories().subscribe(c => {
       this.loadedCategories = c;
-
-
+      this.categoriesHasBeenLoaded = true;
+      this.initDataTable();
+    }, error => {
+      this.categoriesHasBeenLoaded = true;
     });
+
   }
 
   removeCategory(c: Category) {
@@ -112,4 +116,17 @@ export class CategoriesListComponent implements OnInit, AfterViewInit {
 
 
   }
+
+
+  private initDataTable() {
+    setTimeout(() => { // @ts-ignore
+      $('#cat_list').DataTable({
+        language: {
+          url: '//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json'
+        }
+      });
+    }, 100);
+
+  }
+
 }

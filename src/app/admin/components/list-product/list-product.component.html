@@ -1,5 +1,3 @@
-
-
 <!--&lt;!&ndash; Container-fluid starts&ndash;&gt;-->
 <!--<div class="container-fluid">-->
 <!--  <div class="page-header">-->
@@ -118,7 +116,7 @@
       </div>
       <div class="col-lg-6">
         <ol class="breadcrumb pull-right">
-          <li  class="breadcrumb-item"><a routerLink="/admin"  ><i class="fa fa-home" ></i></a></li>
+          <li class="breadcrumb-item"><a routerLink="/admin"><i class="fa fa-home"></i></a></li>
           <li class="breadcrumb-item">Produits</li>
         </ol>
       </div>
@@ -136,57 +134,63 @@
           <h5>Gérer les produits</h5>
         </div>
         <div class="card-body order-datatable">
-          <table class="display" id="basic-1">
+          <table *ngIf="productsHasBeenLoaded" class="display" id="products_list">
             <thead>
             <tr>
-              <th>ID Produit</th>
+              <th style="min-width: 10px;width: 35px; text-align: left">ID</th>
               <th>Nom</th>
-              <th>Tailles</th>
-              <th>Sexe</th>
-              <th>Catégories</th>
-              <th>Collection</th>
+              <th style="max-width: 100px">Tailles</th>
+              <th width="70px">Sexe</th>
+              <th style="max-width: 120px">Catégories</th>
+              <th style="width: 70px;">Collection</th>
               <th>Drop</th>
               <th>Prix</th>
               <th>Status</th>
               <th>Images</th>
-              <th>Actions</th>
+              <th style="width: 90px;">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td>255</td>
-              <td><span class="badge badge-success">T-Shirt</span></td>
-              <td style="max-width: 15%">
-                <div class="d-flex">
-                  XL: 50 | S: 30 | 3XL: 500 | XL: 50 | S: 30 | 3XL: 500
+            <tr *ngFor="let p of loadedProducts">
+              <td style="min-width: 10px;width: 35px">{{p?.id}}</td>
+              <td><span class="badge badge-danger" style="color: white">{{p?.name}}</span></td>
+              <td style="max-width: 100px">
+                <div class="d-block">
+                  <ng-container *ngFor="let s of p?.sizes;let i = index">
+                    <b>{{s?.size?.name}}</b>: {{s?.quantity}}  <br *ngIf="i!== p?.sizes?.length-1">
+                  </ng-container>
                 </div>
               </td>
               <td>
-               Hommes
+                {{p?.gender}}
               </td>
-              <td>
-                T-shirt | Sweat | Pantalon
+              <td style="max-width: 120px">
+                <ng-container *ngFor="let c of p?.categories; let i = index">
+                  {{c?.name }}<span  *ngIf="i!== p?.categories?.length -1"> || </span>
+                </ng-container>
               </td>
-              <td>
-                Hiver
+              <td style="width: 70px;">
+                {{p?.collection}}
               </td>
-              <td>True</td>
-              <td>5280 DT</td>
-              <td>Disponible</td>
+              <td><span [ngClass]="p?.drop? 'badge-primary':'badge-secondary'" class="badge">{{p?.drop}}</span></td>
+              <td>{{p?.price}} DT</td>
+              <td><span [ngClass]="p?.status==='Disponible' ? 'badge-success':'badge-warning'" class="badge"
+                        style="color: white">{{p?.status}}</span></td>
               <td>
                 <div class="d-flex">
-                  <img src="assets/images/electronics/product/25.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
-                  <img src="assets/images/electronics/product/25.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
-                  <img src="assets/images/electronics/product/25.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
-                  <img src="assets/images/electronics/product/25.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
-                  <img src="assets/images/electronics/product/25.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
+                  <img *ngFor="let pic of p?.pictures" [src]="pic?.url" alt=""
+                       class="img-fluid img-30 me-2 blur-up lazyloaded  ">
 
                 </div>
               </td>
-              <td>
+              <td style="width: 70px;">
                 <div class="d-flex">
-                  <button style="padding: 3px 8px" class="btn btn-primary mx-1"><i class="fa fa-pencil"></i></button>
-                  <button data-toggle="modal" data-target="#delete-modal" style="padding: 3px 8px" class="btn btn-danger mx-1"><i class="fa fa-trash"></i></button>
+                  <button [routerLink]="['/admin/products/edit',p?.id]" style="padding: 3px 8px"
+                          class="btn btn-primary mx-1"><i class="fa fa-pencil"></i></button>
+                  <button (click)="openModalDeleteProduct(p)" style="padding: 3px 8px"
+                          class="btn btn-danger mx-1"><i class="fa fa-trash"></i></button>
+                  <button (click)="openModalAddSale(p)" style="padding: 3px 8px"
+                          class="btn btn-danger mx-1"><i class="fa fa-percent"></i></button>
                 </div>
               </td>
             </tr>

@@ -34,7 +34,7 @@
         </div>
 
         <div class="card-body order-datatable">
-          <table class="display" id="basic-1">
+          <table *ngIf="categoriesHasBeenLoaded" class="display" id="cat_list">
             <thead>
             <tr>
               <th>ID</th>

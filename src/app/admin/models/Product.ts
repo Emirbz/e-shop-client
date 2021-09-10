@@ -1,23 +1,29 @@
 import Category from './Category';
 import Picture from './Picture';
+import Size from './Size';
 
 export default class Product {
   id?: number;
   name?: string;
   description?: string;
-  sizes?: Size[];
+  sizes?: ProductSize[];
   gender?: string;
-  category?: Category[];
+  categories?: Category[];
   collection?: string;
   drop?: boolean;
   price?: number;
   status?: string;
   pictures?: Picture[];
+  cart: {
+    size: string;
+    quantity: number;
+  };
+
 }
 
-export class Size {
-  name: string;
-  quantity?: number;
+export class ProductSize {
+  id?: any;
+  size: Size;
+  quantity: number;
 }
-
 

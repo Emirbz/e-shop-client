@@ -8,7 +8,8 @@ export const environment = {
     product: backURL + '/products',
     category: backURL + '/categories',
     file: backURL + '/image',
-    size: backURL + '/sizes'
+    size: backURL + '/sizes',
+    sale: backURL + '/sale'
   },
 };
 /*

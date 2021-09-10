@@ -57,7 +57,7 @@
     });
 
 
-    /*=====================  
+    /*=====================
      02.Tap on Top
      ==========================*/
     $(window).on('scroll', function () {
@@ -1722,7 +1722,7 @@
     /*=====================
      19.Add to cart
      ==========================*/
-    $('.product-box button .ti-shopping-cart').on('click', function () {
+/*    $('.product-box button .ti-shopping-cart').on('click', function () {
         $.notify({
             icon: 'fa fa-check',
             title: 'Success!',
@@ -1758,7 +1758,7 @@
                 '<a href="{3}" target="{4}" data-notify="url"></a>' +
                 '</div>'
         });
-    });
+    });*/
 
 
     /*=====================
