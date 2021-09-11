@@ -9,7 +9,8 @@ export const environment = {
     category: backURL + '/categories',
     file: backURL + '/image',
     size: backURL + '/sizes',
-    sale: backURL + '/sale'
+    sale: backURL + '/sale',
+    order: backURL + '/orders'
   },
 };
 /*

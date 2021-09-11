@@ -7,6 +7,8 @@ import Order, {OrderItem} from '../../../admin/models/Order';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {OrderSucessComponent} from '../../modals/order-sucess/order-sucess.component';
 import {EditCategoryComponent} from '../../../admin/modals/edit-category/edit-category.component';
+import {OrderService} from '../../../admin/services/order.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-checkout',
@@ -16,9 +18,11 @@ import {EditCategoryComponent} from '../../../admin/modals/edit-category/edit-ca
 export class CheckoutComponent implements OnInit {
   loadedProducts: Product[] = [];
   userFormGroup: FormGroup;
+  submittingData = false;
 
   constructor(private cartService: CartService, private formBuilder: FormBuilder,
-              private modalService: NgbModal) {
+              private modalService: NgbModal, private orderService: OrderService,
+              private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -55,25 +59,60 @@ export class CheckoutComponent implements OnInit {
 
   }
 
-  placeOrder() {
+  async placeOrder() {
     if (!this.userFormGroup.valid) {
       return;
     } else {
+      this.submittingData = true;
       const user = this.userFormGroup.value as User;
       const order: Order = {orderItems: [], user, status: 'En attente de confirmation'};
       this.loadedProducts.forEach(product => {
-        order.orderItems.push({product, quantity: product.cart.quantity});
+        order.orderItems.push({
+          product,
+          quantity: product.cart.quantity,
+          size: {name: product.cart.size.size.name, id: product.cart.size.size.id}
+        });
 
       });
-      this.openModalSuccess();
+      this.orderService.addOrder(order).subscribe(o => {
+        if (o) {
+          this.openModalSuccess();
+          this.submittingData = false;
+        }
+
+      }, error => {
+
+        this.submittingData = false;
+        this.showToast('ERROR', 'Taille non ajoutée', 'Une erreur serveur s\'est produite');
+
+      });
+
     }
 
 
   }
 
+  showToast(type: 'ERROR' | 'SUCCESS', title: string, message: string) {
+    switch (type) {
+      case 'ERROR':
+        this.toastr.error(message, title, {
+          progressBar: true,
+          progressAnimation: 'decreasing'
+        });
+        break;
+      case 'SUCCESS':
+        this.toastr.success(message, title, {
+          progressBar: true,
+          progressAnimation: 'decreasing'
+        });
+        break;
+    }
+
+  }
+
   private openModalSuccess() {
     const modalRef = this.modalService.open(
-      OrderSucessComponent,{ size: 'md', backdrop: 'static' }
+      OrderSucessComponent, {size: 'md', backdrop: 'static'}
     );
 
   }

@@ -19,11 +19,6 @@ export class LandingGuard implements CanActivate {
       this.router.navigate(['/landing']);
       return false;
     }
-
-    if (isVisited === true && state.url.includes('landing')) {
-      return true;
-    }
-
     if (isVisited === true) {
       if (state.url.includes('landing')) {
         this.router.navigate(['/shop']);

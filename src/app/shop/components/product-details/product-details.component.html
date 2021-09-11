@@ -65,7 +65,7 @@
                     class="error-message d-block">Selectionner une taille</h6>
                 <div class="size-box">
                   <ul>
-                    <li *ngFor="let s of loadedProduct?.sizes"><a #size (click)="setSizeToBuy(size.text)"
+                    <li *ngFor="let s of loadedProduct?.sizes"><a #size (click)="setSizeToBuy(s)"
                                                                   href="javascript:void(0)">{{s.size.name}}</a></li>
 
                   </ul>

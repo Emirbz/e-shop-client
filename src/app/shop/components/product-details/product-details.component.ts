@@ -1,7 +1,7 @@
 import {AfterViewInit, Component, OnInit} from '@angular/core';
 import {ProductService} from '../../../admin/services/product.service';
 import {ActivatedRoute} from '@angular/router';
-import Product from '../../../admin/models/Product';
+import Product, {ProductSize} from '../../../admin/models/Product';
 import {CartService} from '../../services/cart.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -13,7 +13,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class ProductDetailsComponent implements OnInit, AfterViewInit {
   productHasBeenLoaded = false;
   loadedProduct: Product;
-  sizeToCart: string;
+  sizeToCart: ProductSize;
   quantityToCart = 0;
   productToCart: { product: Product, showToast: boolean } = {product: undefined, showToast: false};
   cartFormGroup: FormGroup;
@@ -79,9 +79,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
   }
 
-  setSizeToBuy(text: string) {
+  setSizeToBuy(text: ProductSize) {
     this.sizeToCart = text;
-    console.log(text);
 
   }
 

@@ -36,7 +36,7 @@ export class CartComponent implements OnInit {
 
   updateQuantity(p: Product, value: string, innerText: string) {
     const cartProducts = JSON.parse(localStorage.getItem('cartProducts')) as Product[];
-    const indexToUpdate = cartProducts.findIndex((pr => pr.id === p.id && pr.cart.size === innerText));
+    const indexToUpdate = cartProducts.findIndex((pr => pr.id === p.id && pr.cart.size.size.name === innerText));
     cartProducts[indexToUpdate].cart.quantity = +value;
     this.cartService.cartProducts = cartProducts;
 

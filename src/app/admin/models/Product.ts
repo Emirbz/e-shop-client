@@ -14,8 +14,8 @@ export default class Product {
   price?: number;
   status?: string;
   pictures?: Picture[];
-  cart: {
-    size: string;
+  cart?: {
+    size: ProductSize;
     quantity: number;
   };
 

@@ -36,50 +36,69 @@
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                   <div class="field-label">Téléphone*</div>
                   <input formControlName="phone" type="text" name="field-name" value="" placeholder="">
-                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('phone').hasError('pattern')" class="invalid-feedback d-block">Enter un numéro de téléphone valide</div>
-                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('phone').hasError('required')" class="invalid-feedback d-block">Veuillez renseigner ce champ</div>
+                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('phone').hasError('pattern')"
+                       class="invalid-feedback d-block">Enter un numéro de téléphone valide
+                  </div>
+                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('phone').hasError('required')"
+                       class="invalid-feedback d-block">Veuillez renseigner ce champ
+                  </div>
                 </div>
                 <div style="margin:auto" class="form-group col-md-6 col-sm-6 col-xs-12">
-                  <input type="button" class="btn btn-primary" style="color: white" value="Remplissage automatique" placeholder="">
+                  <input type="button" class="btn btn-primary" style="color: white" value="Remplissage automatique"
+                         placeholder="">
                 </div>
 
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                   <div class="field-label">Prénom*</div>
                   <input formControlName="firstName" type="text" name="field-name" value="" placeholder="">
-                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('firstName').hasError('required')" class="invalid-feedback d-block">Veuillez renseigner ce champ</div>
+                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('firstName').hasError('required')"
+                       class="invalid-feedback d-block">Veuillez renseigner ce champ
+                  </div>
 
                 </div>
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                   <div class="field-label">Nom*</div>
                   <input type="text" formControlName="lastName" name="field-name" value="" placeholder="">
-                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('lastName').hasError('required')" class="invalid-feedback d-block">Veuillez renseigner ce champ</div>
+                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('lastName').hasError('required')"
+                       class="invalid-feedback d-block">Veuillez renseigner ce champ
+                  </div>
 
                 </div>
 
                 <div class="form-group col-md-12 col-sm-6 col-xs-12">
-                  <div  class="field-label">Email*</div>
+                  <div class="field-label">Email*</div>
                   <input formControlName="email" type="text" name="field-name" value="" placeholder="">
-                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('email').hasError('email')" class="invalid-feedback d-block">Veuillez enter un email valide</div>
-                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('email').hasError('required')" class="invalid-feedback d-block">Veuillez renseigner ce champ</div>
+                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('email').hasError('email')"
+                       class="invalid-feedback d-block">Veuillez enter un email valide
+                  </div>
+                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('email').hasError('required')"
+                       class="invalid-feedback d-block">Veuillez renseigner ce champ
+                  </div>
 
                 </div>
                 <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                  <div  class="field-label">Adresse*</div>
+                  <div class="field-label">Adresse*</div>
                   <input formControlName="address" type="text" name="field-name" value="" placeholder="Street address">
-                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('address').hasError('required')" class="invalid-feedback d-block">Veuillez renseigner ce champ</div>
+                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('address').hasError('required')"
+                       class="invalid-feedback d-block">Veuillez renseigner ce champ
+                  </div>
 
                 </div>
                 <div class="form-group col-md-6 col-sm-12 col-xs-12">
                   <div class="field-label">Ville*</div>
                   <input formControlName="town" type="text" name="field-name" value="" placeholder="">
-                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('town').hasError('required')" class="invalid-feedback d-block">Veuillez renseigner ce champ</div>
+                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('town').hasError('required')"
+                       class="invalid-feedback d-block">Veuillez renseigner ce champ
+                  </div>
 
                 </div>
 
                 <div class="form-group col-md-6 col-sm-6 col-xs-12">
                   <div class="field-label">Postal Code*</div>
                   <input formControlName="postalCode" type="text" name="field-name" value="" placeholder="">
-                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('postalCode').hasError('required')" class="invalid-feedback d-block">Veuillez renseigner ce champ</div>
+                  <div *ngIf="ngForm.submitted &&  userFormGroup.get('postalCode').hasError('required')"
+                       class="invalid-feedback d-block">Veuillez renseigner ce champ
+                  </div>
 
                 </div>
               </div>
@@ -92,7 +111,8 @@
                     <div>Produit <span>Total</span></div>
                   </div>
                   <ul class="qty">
-                    <li *ngFor=" let p of loadedProducts"><b>{{p?.name}}</b> × {{p?.cart.quantity}} ({{p?.cart.size}})
+                    <li *ngFor=" let p of loadedProducts"><b>{{p?.name}}</b> × {{p?.cart.quantity}}
+                      ({{p?.cart.size.size.name}})
                       <span>{{p?.cart.quantity * p?.price}} DT</span></li>
                   </ul>
 
@@ -102,8 +122,11 @@
                 </div>
                 <div class="payment-box">
 
-                  <div *ngIf="loadedProducts?.length>0" class="text-end"><button type="submit" style="color: white" (click)="placeOrder()"
-                                                                            class="btn-solid btn">Passer la commande</button>
+                  <div *ngIf="loadedProducts?.length>0" class="text-end">
+                    <button type="submit" style="color: white" (click)="placeOrder()"
+                            class="btn-solid btn"><i *ngIf="submittingData"
+                                                     class="fa fa-spinner fa-spin"></i>Passer la commande
+                    </button>
                   </div>
                   <div *ngIf="loadedProducts.length===0" routerLink="/shop/products" class="text-end">
                     <h5 class="d-inline-block f-left">Vote panier est vide</h5>

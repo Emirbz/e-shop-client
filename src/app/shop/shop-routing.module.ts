@@ -8,11 +8,15 @@ import {CheckoutComponent} from './components/checkout/checkout.component';
 import {CartComponent} from './components/cart/cart.component';
 import {ProfileComponent} from './components/profile/profile.component';
 import {EditProfileComponent} from './components/edit-profile/edit-profile.component';
+import {NotFoundComponent} from './components/not-found/not-found.component';
+import {TrackOrderComponent} from './components/track-order/track-order.component';
+import {LandingGuard} from './guards/landing.guard';
 
 const shopRouting: Routes = [
   {
     path: '',
     component: LayoutShopComponent,
+    canActivate : [LandingGuard],
     children: [
       {
         path: '',
@@ -32,6 +36,10 @@ const shopRouting: Routes = [
       {
         path: 'cart',
         component: CartComponent,
+      },
+      {
+        path: 'track',
+        component: TrackOrderComponent,
       },
       {
         path: 'profile',
