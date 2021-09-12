@@ -41,9 +41,9 @@
           <tbody *ngFor="let p of loadedProducts">
           <tr>
             <td>
-              <a [routerLink]="['/shop/products',p?.id]"><img [src]="p?.pictures[0]?.url" alt=""></a>
+              <a [routerLink]="['/shop/products/details',p?.id]"><img [src]="p?.pictures[0]?.url" alt=""></a>
             </td>
-            <td><a [routerLink]="['/shop/products',p?.id]">{{p?.name}}</a>
+            <td><a [routerLink]="['/shop/products/details',p?.id]">{{p?.name}}</a>
               <div class="mobile-cart-content row">
                 <div class="col">
                   <div class="qty-box">
@@ -63,7 +63,13 @@
               </div>
             </td>
             <td>
-              <h2 class="price-h2">{{p?.price}}DT</h2>
+              <h2 *ngIf="!p?.sale" class="price-h2">{{p?.price}}DT</h2>
+              <h2 *ngIf="p.sale" class="price-detail"
+                  style="font-family: Lato, sans-serif;">{{calculateNewPrice(p?.price, p?.sale.percentage)}}
+                DT
+                <del>{{p.price}}DT</del>
+                <span style="font-size: 16px;  color: var(--theme-deafult); padding-left: 10px;">{{p.sale.percentage}} off</span>
+              </h2>
             </td>
             <td>
               <span #size>{{p?.cart.size.size.name}}</span>
@@ -92,6 +98,7 @@
               <td>Prix total:</td>
               <td>
                 <h2>{{calcTotalPrice()}}DT</h2>
+
               </td>
             </tr>
             </tfoot>
@@ -101,7 +108,7 @@
       <span *ngIf="loadedProducts?.length === 0 " style="text-align: center">Vote panier est vide</span>
     </div>
     <div class="row cart-buttons">
-      <div class="col-6"><a style="color:white" routerLink="/shop/products" class="btn btn-solid btn-hover">continue shopping</a>
+      <div class="col-6"><a style="color:white" routerLink="/shop/categories" class="btn btn-solid btn-hover">continue shopping</a>
       </div>
       <div class="col-6"><a  style="color: white;" routerLink="/shop/checkout" class="btn btn-solid btn-hover">check out</a></div>
     </div>

@@ -1,0 +1,24 @@
+.collection-block {
+  img {
+    width: 326px;
+    height: 326px;
+    object-fit: cover;
+  }
+
+  .collection-content {
+    a {
+
+      display: inline-block;
+      padding: 13px 29px;
+      letter-spacing: 0.05em;
+      border: 2px solid var(--theme-deafult);
+      position: relative;
+      color: #000000;
+    }
+    h3{
+      font-family: Lato, sans-serif;
+      font-size: 24px;
+    }
+  }
+
+}

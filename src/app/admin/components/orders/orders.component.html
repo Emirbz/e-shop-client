@@ -1,67 +1,82 @@
 
-  <!-- Container-fluid starts-->
-  <div class="container-fluid">
-    <div class="page-header">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="page-header-left">
-            <h3>Commandes
-              <small>Multikart Admin panel</small>
-            </h3>
-          </div>
-        </div>
-        <div class="col-lg-6">
-          <ol class="breadcrumb pull-right">
-            <li  class="breadcrumb-item"><a routerLink="/admin"  ><i class="fa fa-home" ></i></a></li>
-            <li class="breadcrumb-item active">Commandes</li>
-          </ol>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- Container-fluid Ends-->
-
-  <!-- Container-fluid starts-->
-  <div class="container-fluid">
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="page-header">
     <div class="row">
-      <div class="col-sm-12">
-        <div class="card">
-          <div class="card-header">
-            <h5>Liste des commandes</h5>
-          </div>
-          <div class="card-body order-datatable">
-            <table class="display" id="basic-1">
-              <thead>
-              <tr>
-                <th>Order Id</th>
-                <th>Product</th>
-                <th>Order Status</th>
-                <th>Date</th>
-                <th>Total</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr>
-                <td>#51240</td>
-                <td>
-                  <div class="d-flex">
-                    <img src="assets/images/electronics/product/25.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
-                    <img src="assets/images/electronics/product/13.jpg" alt="" class="img-fluid img-30 me-2 blur-up lazyloaded">
-                    <img src="assets/images/electronics/product/16.jpg" alt="" class="img-fluid img-30 blur-up lazyloaded">
-                  </div>
-                </td>
+      <div class="col-lg-6">
+        <div class="page-header-left">
+          <h3>Commandes
+            <small>Smurfitt Admin</small>
+          </h3>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <ol class="breadcrumb pull-right">
+          <li  class="breadcrumb-item"><a routerLink="/admin"  ><i class="fa fa-home" ></i></a></li>
+          <li class="breadcrumb-item active">Commandes</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Container-fluid Ends-->
+
+<!-- Container-fluid starts-->
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-header">
+          <h5 class="d-inline-block">Liste des commandes</h5>
+
+        </div>
+        <div class="card-body order-datatable">
+          <table *ngIf="ordersHasBeenLoaded" class="display" id="orders_list">
+            <thead>
+            <tr>
+              <th>Id</th>
+              <th>Produits</th>
+              <th>Utilisateur</th>
+              <th>Status</th>
+              <th>Prix Total</th>
+              <th>Date </th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let s of loadedOrders">
+              <td>{{s?.id}}</td>
+              <td>
+
+                <ng-container *ngFor="let orderItem of s?.orderItems;let i = index">
+                  <b> <a [routerLink]="['/shop/products/details',orderItem?.product.id]" target="_blank">{{orderItem?.product.name}}</a></b> {{orderItem?.quantity}}* {{orderItem.size.name}}  <br *ngIf="i!== s?.orderItems?.length-1">
+                </ng-container>
+
+              </td>
+              <td>{{s?.user?.firstName | titlecase}}  {{s?.user?.lastName}} <button (click)="openModalUser(s?.user)" class="btn-primary"><i class="fa fa-eye"></i> </button></td>
+              <td><span class="badge badge-success">{{s?.status}}</span></td>
+              <td>{{s?.totalPrice}} DT</td>
+
+              <td> {{s?.createdOn | date: 'dd/mm/yyyy HH:MM'}}</td>
+              <td>
+                <div class="d-flex">
+                  <button
+                    (click)="openModalEditOrder(s)"
+                    style="padding: 3px 8px"
+                    class="btn btn-primary mx-1"><i class="fa fa-pencil"></i></button>
+                  <button (click)="openModalDeleteOrder(s)" style="padding: 3px 8px" class="btn btn-danger mx-1"><i class="fa fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
 
 
-                <td><span class="badge badge-success">Delivered</span></td>
-                <td>Dec 10,18</td>
-                <td>$54671</td>
-              </tr>
-
-              </tbody>
-            </table>
-          </div>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
   </div>
-  <!-- Container-fluid Ends-->
+</div>
+<!-- Container-fluid Ends-->
+
+

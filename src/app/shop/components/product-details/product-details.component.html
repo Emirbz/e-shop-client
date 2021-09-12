@@ -11,7 +11,7 @@
         <nav aria-label="breadcrumb" class="theme-breadcrumb">
           <ol class="breadcrumb">
             <li class="breadcrumb-item"><a routerLink="/shop">Accueil</a></li>
-            <li class="breadcrumb-item"><a routerLink="/shop/products">Boutique</a></li>
+            <li class="breadcrumb-item"><a routerLink="/shop/categories">Boutique</a></li>
             <li class="breadcrumb-item active" aria-current="page">Produit</li>
           </ol>
         </nav>
@@ -30,15 +30,17 @@
         <div class="col-lg-6">
 
           <div class="product-slick">
-            <div *ngFor="let pic of loadedProduct?.pictures"><img style="width: 44rem;" [src]="pic?.url" alt=""
-                                                                  class="img-fluid blur-up lazyload image_zoom_cls-0">
+            <div *ngFor="let pic of loadedProduct?.pictures"><img
+              style="width: :33.75rem;object-fit: cover;  height:42.188rem;" [src]="pic?.url" alt=""
+              class="img-fluid blur-up lazyload image_zoom_cls-0">
             </div>
 
           </div>
           <div class="row">
             <div class="col-12 p-0">
               <div class="slider-nav">
-                <div *ngFor="let pic of loadedProduct?.pictures"><img style="width: 13rem" [src]="pic?.url" alt=""
+                <div *ngFor="let pic of loadedProduct?.pictures"><img style="width: 13rem;object-fit: cover;
+    height: 15.8rem;" [src]="pic?.url" alt=""
                                                                       class="img-fluid blur-up lazyload"></div>
 
               </div>
@@ -53,11 +55,25 @@
 
             </div>
             <div class="label-section">
-              <span *ngFor="let c of loadedProduct.categories" class="badge badge-grey-color ml-1">{{c?.name}}</span>
+              <span *ngFor="let c of loadedProduct.categories" class="badge badge-info ml-1">{{c?.name}}</span>
             </div>
-            <h3 class="price-detail">{{loadedProduct.price}}DT
-              <del>$459.00</del>
-              <span>55% off</span></h3>
+            <ng-container *ngIf="loadedProduct.sale">
+              <h3 class="price-detail"
+                  style="font-family: Lato, sans-serif;">{{calculateNewPrice(loadedProduct?.price, loadedProduct?.sale.percentage)}}
+                DT
+                <del>{{loadedProduct.price}}DT</del>
+                <span>{{loadedProduct.sale.percentage}} off</span>
+              </h3>
+
+            </ng-container>
+            <ng-container *ngIf="!loadedProduct.sale">
+              <h3 class="price-detail" style="font-family: Lato, sans-serif;">{{loadedProduct.price}}DT</h3>
+            </ng-container>
+            <div *ngIf="loadedProduct?.sale" class="border-product">
+              <h6 class="product-title">Promotion expire dans</h6>
+
+              <span class="badge badge-warning" style="color: white;padding: 6px 62px;font-size: 14px"> {{daysLeft(loadedProduct.sale)}} jours</span>
+            </div>
             <form #ngForm="ngForm" [formGroup]="cartFormGroup">
               <div id="selectSize" class="addeffect-section product-description border-product">
 
@@ -65,8 +81,10 @@
                     class="error-message d-block">Selectionner une taille</h6>
                 <div class="size-box">
                   <ul>
-                    <li *ngFor="let s of loadedProduct?.sizes"><a #size (click)="setSizeToBuy(s)"
-                                                                  href="javascript:void(0)">{{s.size.name}}</a></li>
+                    <li [class.selected-size]="s===sizeToCart" *ngFor="let s of loadedProduct?.sizes"><a #size
+                                                                                                         style="cursor: default"
+                                                                                                         (click)="setSizeToBuy(s)"
+                    >{{s.size.name}}</a></li>
 
                   </ul>
                 </div>
@@ -81,8 +99,9 @@
                   <span class="input-group-prepend">
                <button type="button" class="btn quantity-left-minus"><i class="ti-angle-left"></i></button>
                 </span>
-                      <input #quantity formControlName="quantity" type="text" name="quantity" class="form-control input-number"
-                             >
+                    <input #quantity formControlName="quantity" type="text" name="quantity"
+                           class="form-control input-number"
+                    >
                     <span class="input-group-prepend">
                     <button type="button" class="btn quantity-right-plus"><i class="ti-angle-right"></i></button>
                   </span>
@@ -98,12 +117,7 @@
                 </button>
               </div>
             </form>
-            <div class="border-product">
-              <h6 class="product-title">Sales Ends In</h6>
-              <div class="timer">
-                <p id="demo"></p>
-              </div>
-            </div>
+
             <div class="border-product">
               <h6 class="product-title">Description</h6>
               <p>{{loadedProduct?.description}}</p>
@@ -166,7 +180,8 @@
 </section>
 <!-- product section end -->
 
-<div *ngIf="productToCart.showToast" class="media recently-purchase show notif-cart">
+<div *ngIf="productToCart.showToast" class="media recently-purchase show notif-cart"
+     style="position: fixed;top:15px;right: 15px;left: unset;align-items: center">
   <img class="toast-product-img" [src]="productToCart?.product.pictures[0]?.url" alt="Floral Dress ">
   <div class="media-body">
     <div>

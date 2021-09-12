@@ -1,6 +1,7 @@
 import Category from './Category';
 import Picture from './Picture';
 import Size from './Size';
+import Sale from './Sale';
 
 export default class Product {
   id?: number;
@@ -12,6 +13,7 @@ export default class Product {
   collection?: string;
   drop?: boolean;
   price?: number;
+  sale?: Sale;
   status?: string;
   pictures?: Picture[];
   cart?: {

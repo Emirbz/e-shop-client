@@ -4,6 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import Product, {ProductSize} from '../../../admin/models/Product';
 import {CartService} from '../../services/cart.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import Sale from '../../../admin/models/Sale';
 
 @Component({
   selector: 'app-product-details',
@@ -25,12 +26,10 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
 
-    this.loadSingleProduct();
+    this.loadSingleProduct().then();
   }
 
   ngAfterViewInit(): void {
-
-    this.loadScript('assets/js/script.js');
 
 
   }
@@ -44,7 +43,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
   }
 
-  private loadSingleProduct() {
+  async loadSingleProduct() {
     this.productHasBeenLoaded = false;
     const id = this.activeRouter.snapshot.params.id;
     this.productService.getSingleProduct(id).subscribe(p => {
@@ -52,6 +51,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
       this.productHasBeenLoaded = true;
       this.cartFormValidate();
       this.loadScript('assets/js/slick.js');
+      this.loadScript('assets/js/script.js');
     }, error => {
       this.productHasBeenLoaded = true;
 
@@ -72,7 +72,7 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
       console.log(this.productToCart);
       setTimeout(() => {
         this.productToCart.showToast = false;
-      }, 9000);
+      }, 3000);
 
     }
 
@@ -86,12 +86,26 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
 
   private cartFormValidate() {
     this.cartFormGroup = this.formBuilder.group({
-      quantity: [50, Validators.min(1)]
+      quantity: [1, Validators.min(1)]
     });
 
   }
 
   isNumber(value: string) {
-   return /^\d+$/.test(value);
+    return /^\d+$/.test(value);
+  }
+
+  calculateNewPrice(price: number, percentage: number) {
+    return price - ((price * percentage) / 100);
+
+  }
+
+  daysLeft(sale: Sale) {
+    const currentDate = new Date();
+    const dateSent = new Date(sale.endDate);
+
+    // tslint:disable-next-line:max-line-length
+    return Math.abs(Math.floor((Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()) - Date.UTC(dateSent.getFullYear(), dateSent.getMonth(), dateSent.getDate())) / (1000 * 60 * 60 * 24)));
+
   }
 }

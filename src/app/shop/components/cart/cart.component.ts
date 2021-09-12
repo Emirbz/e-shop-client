@@ -28,10 +28,18 @@ export class CartComponent implements OnInit {
   calcTotalPrice() {
     let totalPrice = 0;
     this.loadedProducts.forEach(p => {
-      totalPrice += p?.cart.quantity * p.price;
-
+      if (p.sale) {
+        totalPrice += p?.cart.quantity * this.calculateNewPrice(p.price, p.sale.percentage);
+      }
+      else {
+        totalPrice += p?.cart.quantity * p.price;
+      }
     });
     return totalPrice;
+  }
+  calculateNewPrice(price: number, percentage: number) {
+    return price - ((price * percentage) / 100);
+
   }
 
   updateQuantity(p: Product, value: string, innerText: string) {

@@ -134,4 +134,9 @@ export class LeftSidebarProductsComponent implements OnInit, AfterViewInit {
     console.log('id', value);
 
   }
+
+  calculateNewPrice(price: number, percentage: number) {
+    return price - ((price * percentage) / 100);
+
+  }
 }

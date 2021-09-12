@@ -6,7 +6,7 @@
       <div class="col-lg-6">
         <div class="page-header-left">
           <h3>Tailles
-            <small>Multikart Admin panel</small>
+            <small>Smurfitt Admin</small>
           </h3>
         </div>
       </div>
@@ -35,6 +35,7 @@
             <thead>
             <tr>
               <th>Id</th>
+<!--              <th>Produit</th>-->
               <th>Date de début</th>
               <th>Date fin</th>
               <th>Pourcentage</th>
@@ -44,11 +45,12 @@
             <tbody>
             <tr *ngFor="let s of loadedSales">
               <td>{{s?.id}}</td>
+<!--              <td><a [routerLink]="['/shop/products/details',s?.product.id]"  class="badge badge-info">{{s?.product?.name}}</a></td>-->
               <td>
-                {{s?.startDate  | date: 'dd/MM/yyyy HH:mm'}}
+                {{s?.startDate  | date: 'dd/MM/yyyy'}}
               </td>
               <td>
-                {{s?.endDate  | date: 'dd/MM/yyyy HH:mm'}}
+                {{s?.endDate  | date: 'dd/MM/yyyy'}}
               </td>
               <td>
                 {{s?.percentage  | number}}%

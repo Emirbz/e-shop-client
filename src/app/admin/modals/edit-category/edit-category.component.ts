@@ -98,7 +98,7 @@ export class EditCategoryComponent implements OnInit {
       this.closeModal(c);
     }, error => {
       this.submittingData = false;
-      this.showToast('ERROR', 'Categorie non ajoutée', 'Une erreur serveur s\'est produite');
+      this.showToast('ERROR', 'Categorie non modifiée', 'Une erreur serveur s\'est produite');
 
     });
   }

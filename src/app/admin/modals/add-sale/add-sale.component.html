@@ -10,14 +10,14 @@
       <div class="form">
         <div class="form-group">
           <label for="validationCustom01" class="mb-1">Date de début :</label>
-          <input formControlName="startDate" class="form-control " id="validationCustom01" type="datetime-local">
+          <input formControlName="startDate" class="form-control " id="validationCustom01" type="date">
           <div *ngIf=" ngForm.submitted &&  saleFormGroup.get('startDate').hasError('required')"
                class="invalid-feedback d-block">Veuillez entrer une date de début pour la promotion
           </div>
         </div>
         <div class="form-group">
           <label for="validationCustom05" class="mb-1">Date fin :</label>
-          <input formControlName="endDate" class="form-control " id="validationCustom05" type="datetime-local">
+          <input formControlName="endDate" class="form-control " id="validationCustom05" type="date">
           <div *ngIf=" ngForm.submitted &&  saleFormGroup.get('endDate').hasError('required')"
                class="invalid-feedback d-block">Veuillez entrer une date fin pour la promotion
           </div>

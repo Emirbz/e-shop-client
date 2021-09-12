@@ -14,7 +14,7 @@ const routes: Routes = [
   }, {
     path: 'landing',
     component: LandingPageComponent,
-    canActivate:[LandingGuard]
+    canActivate: [LandingGuard]
   },
   {
     path: 'shop',

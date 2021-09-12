@@ -38,7 +38,8 @@
               <div class="collection-collapse-block-content">
                 <div *ngIf="categoriesHasBeenLoaded" class="collection-brand-filter">
                   <div *ngFor="let c of loadedCategories" class="form-check collection-filter-checkbox">
-                    <input (change)="setCategoriesFilter($event,cat.id)" #cat type="checkbox" class="form-check-input" [id]="c?.id">
+                    <input (change)="setCategoriesFilter($event,cat.id)" #cat type="checkbox" class="form-check-input"
+                           [id]="c?.id">
                     <label class="form-check-label" [htmlFor]="c?.id">{{c?.name}}</label>
                   </div>
 
@@ -51,19 +52,23 @@
               <div class="collection-collapse-block-content">
                 <div class="collection-brand-filter">
                   <div class="form-check collection-filter-checkbox">
-                    <input type="radio" name="collection" #c1 (change)="setCollectionFilter($event,c1.id)" class="form-check-input" id="Été">
-                    <label class="form-check-label"  for="Été">Été</label>
+                    <input type="radio" name="collection" #c1 (change)="setCollectionFilter($event,c1.id)"
+                           class="form-check-input" id="Été">
+                    <label class="form-check-label" for="Été">Été</label>
                   </div>
                   <div class="form-check collection-filter-checkbox">
-                    <input #c2 type="radio"  (change)="setCollectionFilter($event,c2.id)" name="collection" class="form-check-input" id="Hiver">
+                    <input #c2 type="radio" (change)="setCollectionFilter($event,c2.id)" name="collection"
+                           class="form-check-input" id="Hiver">
                     <label class="form-check-label" for="Hiver">Hiver</label>
                   </div>
                   <div class="form-check collection-filter-checkbox">
-                    <input #c3 type="radio"  (change)="setCollectionFilter($event,c3.id)" name="collection" class="form-check-input" id="Automne">
+                    <input #c3 type="radio" (change)="setCollectionFilter($event,c3.id)" name="collection"
+                           class="form-check-input" id="Automne">
                     <label class="form-check-label" for="Automne">Automne</label>
                   </div>
                   <div class="form-check collection-filter-checkbox">
-                    <input #c4 type="radio"  (change)="setCollectionFilter($event,c4.id)" name="collection" class="form-check-input" id="Printemps">
+                    <input #c4 type="radio" (change)="setCollectionFilter($event,c4.id)" name="collection"
+                           class="form-check-input" id="Printemps">
                     <label class="form-check-label" for="Printemps">Printemps</label>
                   </div>
 
@@ -71,12 +76,13 @@
               </div>
             </div>
             <!-- size filter start here -->
-            <div  *ngIf="sizesHasBeenLoaded " class="collection-collapse-block border-0 open">
+            <div *ngIf="sizesHasBeenLoaded " class="collection-collapse-block border-0 open">
               <h3 class="collapse-block-title">Taille</h3>
               <div class="collection-collapse-block-content">
                 <div class="collection-brand-filter">
                   <div *ngFor="let s of loadedSizes" class="form-check collection-filter-checkbox">
-                    <input (change)="setSizesFilter($event,size.id)" #size  [id]="s?.id" type="checkbox" class="form-check-input">
+                    <input (change)="setSizesFilter($event,size.id)" #size [id]="s?.id" type="checkbox"
+                           class="form-check-input">
                     <label class="form-check-label" [htmlFor]="s?.id">{{s?.name}}</label>
                   </div>
 
@@ -102,8 +108,8 @@
             <div class="offer-slider slide-1">
               <div>
                 <div class="media">
-                  <a ><img class="img-fluid blur-up lazyload"
-                                                              src="assets/images/fashion/pro/1.jpg" alt=""></a>
+                  <a><img class="img-fluid blur-up lazyload"
+                          src="assets/images/fashion/pro/1.jpg" alt=""></a>
                   <div class="media-body align-self-center">
                     <a
                       href="product-page(no-sidebar).html">
@@ -137,9 +143,11 @@
                     </div>
                     <div class="row">
                       <div class="col-12">
-                        <div class="product-filter-content" style="-webkit-box-pack: initial; justify-content: inherit;">
+                        <div class="product-filter-content"
+                             style="-webkit-box-pack: initial; justify-content: inherit;">
                           <div class="search-count">
-                            <h5 class="total-products">Affichage {{pageNumber*numberOfElements}}-{{pageSize*numberOfElements}} de {{numberOfElements}} produits</h5>
+                            <h5 class="total-products">Affichage {{pageNumber * numberOfElements}}
+                              -{{pageSize * numberOfElements}} de {{numberOfElements}} produits</h5>
                           </div>
 
                           <div class="product-page-per-view">
@@ -169,24 +177,38 @@
                         <div *ngFor="let p of loadedProducts" class="product-box">
                           <div class="img-wrapper">
                             <div class="front">
-                              <a [routerLink]="['/shop/products',p?.id]">
-                                <img [src]="p?.pictures[0]?.url" class="img-fluid blur-up lazyload bg-img"alt=""></a>
+                              <a [routerLink]="['/shop/products/details',p?.id]">
+                                <img [src]="p?.pictures[0]?.url" class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
                             <div class="back">
-                              <a [routerLink]="['/shop/products',p?.id]">
-                                <img [src]="p?.pictures[1]?.url ? p?.pictures[1].url : p?.pictures[0].url" class="img-fluid blur-up lazyload bg-img" alt=""></a>
+                              <a [routerLink]="['/shop/products/details',p?.id]">
+                                <img [src]="p?.pictures[1]?.url ? p?.pictures[1].url : p?.pictures[0].url"
+                                     class="img-fluid blur-up lazyload bg-img" alt=""></a>
                             </div>
 
                           </div>
                           <div class="product-detail">
                             <div>
 
-                              <a [routerLink]="['/shop/products',p?.id]">
+                              <a [routerLink]="['/shop/products/details',p?.id]">
+                                <div class="label-section">
+                                  <span *ngFor="let c of p.categories" class="badge badge-info mr-1">{{c?.name}}</span>
+                                </div>
                                 <h6>{{p?.name}}</h6>
+                                <div class="product-right">
+                                  <ng-container *ngIf="p.sale">
+                                    <h3 style="font-family: Lato, sans-serif;" class="price-detail">{{calculateNewPrice(p?.price, p?.sale.percentage)}}DT
+                                      <del>{{p.price}}DT</del>
+                                      <span>{{p.sale.percentage}}%</span>
+                                    </h3>
+
+                                  </ng-container>
+                                  <ng-container *ngIf="!p.sale">
+                                    <h3 style="font-family: Lato, sans-serif;" class="price-detail">{{p.price}}DT</h3>
+                                  </ng-container>
+                                </div>
+
                               </a>
-
-                              <h4>{{p?.price}} DT</h4>
-
                             </div>
                           </div>
                         </div>
@@ -222,7 +244,8 @@
                         </div>
                         <div class="col-xl-6 col-md-6 col-sm-12">
                           <div class="product-search-count-bottom">
-                            <h5>Affichage {{pageNumber*numberOfElements}}-{{pageSize*numberOfElements}} de {{numberOfElements}} produits</h5>
+                            <h5>Affichage {{pageNumber * numberOfElements}}-{{pageSize * numberOfElements}}
+                              de {{numberOfElements}} produits</h5>
                           </div>
                         </div>
                       </div>

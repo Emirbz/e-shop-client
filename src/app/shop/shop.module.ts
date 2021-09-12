@@ -15,6 +15,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {OrderSucessComponent} from './modals/order-sucess/order-sucess.component';
 import {TrackOrderComponent} from './components/track-order/track-order.component';
+import { CategoriesComponent } from './components/categories/categories.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {TrackOrderComponent} from './components/track-order/track-order.componen
     LandingPageComponent,
     NotFoundComponent,
     OrderSucessComponent,
-    TrackOrderComponent
+    TrackOrderComponent,
+    CategoriesComponent
   ],
   imports: [
     CommonModule,

@@ -65,8 +65,11 @@ export class CheckoutComponent implements OnInit {
     } else {
       this.submittingData = true;
       const user = this.userFormGroup.value as User;
-      const order: Order = {orderItems: [], user, status: 'En attente de confirmation'};
+      const order: Order = {orderItems: [], user, status: 'Commande passée'};
       this.loadedProducts.forEach(product => {
+        if (product.sale) {
+          product.price = product.price - ((product.price * product.sale.percentage) / 100);
+        }
         order.orderItems.push({
           product,
           quantity: product.cart.quantity,

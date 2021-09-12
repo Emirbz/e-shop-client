@@ -8,6 +8,8 @@ export default class Order {
   status?: string;
   user?: User;
   orderItems?: OrderItem[];
+  totalPrice?: number;
+  createdOn?: string;
 }
 
 export class OrderItem {

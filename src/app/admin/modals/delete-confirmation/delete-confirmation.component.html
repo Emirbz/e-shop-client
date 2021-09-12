@@ -1,0 +1,18 @@
+
+
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirmation de la suppression</h5>
+        <button type="button" class="close" (click)="closeModal(undefined)" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Voulez vous vraiment supprimer le <b>{{type}}</b> avec l'id <b>{{id}}</b>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModal(undefined)" >Annuler</button>
+        <button type="button" class="btn btn-primary" (click)="deleteEntity()">Supprimer</button>
+      </div>
+    </div>
+

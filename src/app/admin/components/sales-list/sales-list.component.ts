@@ -44,6 +44,7 @@ export class SalesListComponent implements OnInit, AfterViewInit {
       this.salesHasBeenLoaded = true;
       this.initDataTable();
     }, error => {
+      this.showToast('ERROR', 'Liste promotions not chargée', 'Une erreur s\'est produite');
       this.salesHasBeenLoaded = true;
     });
   }
@@ -58,6 +59,22 @@ export class SalesListComponent implements OnInit, AfterViewInit {
       });
     }, 100);
 
+  }
+  showToast(type: 'ERROR' | 'SUCCESS', title: string, message: string) {
+    switch (type) {
+      case 'ERROR':
+        this.toastr.error(message, title, {
+          progressBar: true,
+          progressAnimation: 'decreasing'
+        });
+        break;
+      case 'SUCCESS':
+        this.toastr.success(message, title, {
+          progressBar: true,
+          progressAnimation: 'decreasing'
+        });
+        break;
+    }
   }
 
   openModalDeleteSale(s: Sale) {

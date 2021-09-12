@@ -30,7 +30,7 @@ export class OrderService {
   }
 
   updateOrder(orderToEdit: Order): Observable<Order> {
-    return this.http.put<Order>(`${this.orderAPI}/${orderToEdit.id}`, orderToEdit);
+    return this.http.patch<Order>(`${this.orderAPI}/${orderToEdit.id}`,  orderToEdit.status);
   }
 
 }

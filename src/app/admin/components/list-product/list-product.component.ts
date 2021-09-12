@@ -9,6 +9,7 @@ import {AddSaleComponent} from '../../modals/add-sale/add-sale.component';
 import set = Reflect.set;
 import Category from '../../models/Category';
 import {DeleteConfirmationComponent} from '../../modals/delete-confirmation/delete-confirmation.component';
+import {Toast, ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-list-product',
@@ -21,7 +22,7 @@ export class ListProductComponent implements OnInit, AfterViewInit {
   productsHasBeenLoaded = false;
 
 
-  constructor(private productService: ProductService, private modalService: NgbModal) {
+  constructor(private productService: ProductService, private modalService: NgbModal, private toastr: ToastrService) {
   }
 
   ngAfterViewInit(): void {
@@ -53,8 +54,26 @@ export class ListProductComponent implements OnInit, AfterViewInit {
       this.productsHasBeenLoaded = true;
       this.initDataTable();
     }, error => {
+      this.showToast('ERROR', 'Liste produit not chargée', 'Une erreur s\'est produite');
       this.productsHasBeenLoaded = true;
     });
+  }
+
+  showToast(type: 'ERROR' | 'SUCCESS', title: string, message: string) {
+    switch (type) {
+      case 'ERROR':
+        this.toastr.error(message, title, {
+          progressBar: true,
+          progressAnimation: 'decreasing'
+        });
+        break;
+      case 'SUCCESS':
+        this.toastr.success(message, title, {
+          progressBar: true,
+          progressAnimation: 'decreasing'
+        });
+        break;
+    }
   }
 
 

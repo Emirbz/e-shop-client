@@ -16,10 +16,12 @@ export class FileStorageService {
 
 
   public upload(file: File): Observable<any> {
-    console.log(this.fileStorageUrl);
+    const newFileName = file.name.replace(/[^A-Z0-9]+/ig, '_');
+    const blob = file.slice(0, file.size, file.type);
+    const newFile = new File([blob], newFileName, {type: file.type});
     const formData: FormData = new FormData();
 
-    formData.append('file', file);
+    formData.append('file', newFile);
 
     return this.http.post(`${this.fileStorageUrl}/upload`, formData, {
       reportProgress: true,

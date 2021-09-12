@@ -160,7 +160,7 @@ export class AddProductComponent implements OnInit, AfterViewInit {
 
 
   addProduct() {
-    if (!this.productFormGroup.valid) {
+    if (!this.productFormGroup.valid || this.imagesToPersist.length < 1) {
       return;
     } else {
       this.submittingData = true;
@@ -295,7 +295,7 @@ export class AddProductComponent implements OnInit, AfterViewInit {
 
 
     }
-    if (this.uploadSubscription){
+    if (this.uploadSubscription) {
 
       this.uploadSubscription.unsubscribe();
     }

@@ -11,6 +11,7 @@ import {EditProfileComponent} from './components/edit-profile/edit-profile.compo
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {TrackOrderComponent} from './components/track-order/track-order.component';
 import {LandingGuard} from './guards/landing.guard';
+import {CategoriesComponent} from './components/categories/categories.component';
 
 const shopRouting: Routes = [
   {
@@ -24,10 +25,14 @@ const shopRouting: Routes = [
         redirectTo: '', pathMatch: 'full'
       },
       {
-        path: 'products',
+        path: 'categories',
+        component: CategoriesComponent,
+      },
+      {
+        path: 'products/:id',
         component: LeftSidebarProductsComponent,
       }, {
-        path: 'products/:id',
+        path: 'products/details/:id',
         component: ProductDetailsComponent,
       }, {
         path: 'checkout',
@@ -38,7 +43,7 @@ const shopRouting: Routes = [
         component: CartComponent,
       },
       {
-        path: 'track',
+        path: 'track/:id',
         component: TrackOrderComponent,
       },
       {

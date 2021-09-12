@@ -6,6 +6,7 @@ import {DeleteConfirmationComponent} from '../../modals/delete-confirmation/dele
 import {EditSizeComponent} from '../../modals/edit-size/edit-size.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {AddSizeComponent} from '../../modals/add-size/add-size.component';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-sizes-list',
@@ -16,9 +17,9 @@ export class SizesListComponent implements OnInit, AfterViewInit {
   loadedSizes: Size[] = [];
   sizeToDelete: Size = {};
   sizeToEdit: Size = {};
-   sizesHasBeenLoaded = false;
+  sizesHasBeenLoaded = false;
 
-  constructor(private sizeService: SizeService, private modalService: NgbModal) {
+  constructor(private sizeService: SizeService, private modalService: NgbModal, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -47,6 +48,7 @@ export class SizesListComponent implements OnInit, AfterViewInit {
       this.sizesHasBeenLoaded = true;
       this.initDataTable();
     }, error => {
+      this.showToast('ERROR', 'Liste produit not chargée', 'Une erreur s\'est produite');
       this.sizesHasBeenLoaded = true;
     });
   }
@@ -56,7 +58,24 @@ export class SizesListComponent implements OnInit, AfterViewInit {
     this.loadedSizes.splice(indexToRemove, 1);
   }
 
-  openModalEditSize(s: Size) {
+  showToast(type: 'ERROR' | 'SUCCESS', title: string, message: string) {
+    switch (type) {
+      case 'ERROR':
+        this.toastr.error(message, title, {
+          progressBar: true,
+          progressAnimation: 'decreasing'
+        });
+        break;
+      case 'SUCCESS':
+        this.toastr.success(message, title, {
+          progressBar: true,
+          progressAnimation: 'decreasing'
+        });
+        break;
+    }
+  }
+
+  openModalEditOrder(s: Size) {
     const modalRef = this.modalService.open(
       EditSizeComponent
     );
@@ -102,7 +121,6 @@ export class SizesListComponent implements OnInit, AfterViewInit {
 
     });
   }
-
 
 
   private initDataTable() {

@@ -6,6 +6,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {EditCategoryComponent} from '../../modals/edit-category/edit-category.component';
 import {AddCategoryComponent} from '../../modals/add-category/add-category.component';
 import {DeleteConfirmationComponent} from '../../modals/delete-confirmation/delete-confirmation.component';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -21,9 +22,9 @@ export class CategoriesListComponent implements OnInit, AfterViewInit {
 
   categoryToDelete: Category;
   categoryToEdit: Category = {};
-   categoriesHasBeenLoaded= false;
+  categoriesHasBeenLoaded = false;
 
-  constructor(private categoryService: CategoryService, private modalService: NgbModal) {
+  constructor(private categoryService: CategoryService, private modalService: NgbModal, private toastr: ToastrService) {
 
   }
 
@@ -50,6 +51,23 @@ export class CategoriesListComponent implements OnInit, AfterViewInit {
 
   }
 
+  showToast(type: 'ERROR' | 'SUCCESS', title: string, message: string) {
+    switch (type) {
+      case 'ERROR':
+        this.toastr.error(message, title, {
+          progressBar: true,
+          progressAnimation: 'decreasing'
+        });
+        break;
+      case 'SUCCESS':
+        this.toastr.success(message, title, {
+          progressBar: true,
+          progressAnimation: 'decreasing'
+        });
+        break;
+    }
+  }
+
 
   private loadCategories() {
     this.categoryService.getCategories().subscribe(c => {
@@ -57,6 +75,7 @@ export class CategoriesListComponent implements OnInit, AfterViewInit {
       this.categoriesHasBeenLoaded = true;
       this.initDataTable();
     }, error => {
+      this.showToast('ERROR', 'Liste categories not chargée', 'Une erreur s\'est produite');
       this.categoriesHasBeenLoaded = true;
     });
 

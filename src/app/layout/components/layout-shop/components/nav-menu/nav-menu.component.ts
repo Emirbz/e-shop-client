@@ -46,8 +46,13 @@ export class NavMenuComponent implements OnInit, AfterViewInit {
 
   calcTotalPrice() {
     let totalPrice = 0;
-    this.cartProducts.forEach(p => {
-      totalPrice += p?.cart.quantity * p.price;
+    this.cartProducts.forEach(product => {
+      const p = product;
+      if (p.sale) {
+        totalPrice += p?.cart.quantity * this.calculateNewPrice(p.price, p.sale.percentage);
+      } else {
+        totalPrice += p?.cart.quantity * p.price;
+      }
 
     });
     return totalPrice;
@@ -58,6 +63,11 @@ export class NavMenuComponent implements OnInit, AfterViewInit {
     const indexToRemove = cartProducts.findIndex(p => p.id === pr.id);
     cartProducts.splice(indexToRemove, 1);
     this.cartService.cartProducts = cartProducts;
+
+  }
+
+  calculateNewPrice(price: number, percentage: number) {
+    return price - ((price * percentage) / 100);
 
   }
 }
