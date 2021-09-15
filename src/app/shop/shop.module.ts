@@ -16,6 +16,7 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
 import {OrderSucessComponent} from './modals/order-sucess/order-sucess.component';
 import {TrackOrderComponent} from './components/track-order/track-order.component';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { CategoriesComponent } from './components/categories/categories.componen
     NotFoundComponent,
     OrderSucessComponent,
     TrackOrderComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    ContactComponent
   ],
   imports: [
     CommonModule,

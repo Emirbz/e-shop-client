@@ -15,7 +15,7 @@ export class EditOrderComponent implements OnInit {
   order: Order;
   orderFormGroup: FormGroup;
   submittingData = false;
-  loadedStatus: string[] = [];
+  loadedStatus = ['Commande passée', 'Commande confirmée', 'En livraison', 'Livré'];
 
   constructor(private activeModal: NgbActiveModal, private formBuilder: FormBuilder,
               private orderService: OrderService, private toastr: ToastrService) {

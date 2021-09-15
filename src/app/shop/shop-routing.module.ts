@@ -12,6 +12,7 @@ import {NotFoundComponent} from './components/not-found/not-found.component';
 import {TrackOrderComponent} from './components/track-order/track-order.component';
 import {LandingGuard} from './guards/landing.guard';
 import {CategoriesComponent} from './components/categories/categories.component';
+import {ContactComponent} from './components/contact/contact.component';
 
 const shopRouting: Routes = [
   {
@@ -27,6 +28,10 @@ const shopRouting: Routes = [
       {
         path: 'categories',
         component: CategoriesComponent,
+      },
+      {
+        path: 'contact',
+        component: ContactComponent,
       },
       {
         path: 'products/:id',
