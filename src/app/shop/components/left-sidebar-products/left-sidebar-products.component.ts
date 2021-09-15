@@ -8,6 +8,7 @@ import {ProductService} from '../../../admin/services/product.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import Product from '../../../admin/models/Product';
 import {CartService} from '../../services/cart.service';
+import {ActivatedRoute, ActivatedRouteSnapshot} from '@angular/router';
 
 @Component({
   selector: 'app-left-sidebar-products',
@@ -43,7 +44,8 @@ export class LeftSidebarProductsComponent implements OnInit, AfterViewInit {
   constructor(private categoryService: CategoryService,
               private sizeService: SizeService,
               private productService: ProductService,
-              private cartService: CartService) {
+              private cartService: CartService,
+              private activeRouter: ActivatedRoute) {
   }
 
   ngOnInit(): void {
@@ -89,9 +91,9 @@ export class LeftSidebarProductsComponent implements OnInit, AfterViewInit {
 
 
   loadProducts(criteria?: { categories: number[]; sizes: number[]; collection: string; minPrice: number; maxPrice: number }) {
-    console.log(criteria);
+    const id = this.activeRouter.snapshot.params.id;
     this.productsHasBeenLoaded = false;
-    this.productService.getAllProducts().subscribe(p => {
+    this.productService.getAllProducts(id).subscribe(p => {
       this.loadedProducts = p.content;
       this.numberOfElements = p.numberOfElements;
       this.pageNumber = p.number + 1;

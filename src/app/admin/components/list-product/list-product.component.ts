@@ -49,8 +49,8 @@ export class ListProductComponent implements OnInit, AfterViewInit {
 
   loadProducts() {
     this.productsHasBeenLoaded = false;
-    this.productService.getAllProducts().subscribe(p => {
-      this.loadedProducts = p.content;
+    this.productService.getAllProducts(0).subscribe(p => {
+      this.loadedProducts = p;
       this.productsHasBeenLoaded = true;
       this.initDataTable();
     }, error => {

@@ -36,6 +36,7 @@
             <tr>
               <th>Id</th>
 <!--              <th>Produit</th>-->
+              <th>Produit</th>
               <th>Date de début</th>
               <th>Date fin</th>
               <th>Pourcentage</th>
@@ -45,7 +46,8 @@
             <tbody>
             <tr *ngFor="let s of loadedSales">
               <td>{{s?.id}}</td>
-<!--              <td><a [routerLink]="['/shop/products/details',s?.product.id]"  class="badge badge-info">{{s?.product?.name}}</a></td>-->
+
+              <td><a [routerLink]="['/shop/products/details',s?.product.id]"  class="badge badge-info">{{s?.product?.name}}</a></td>
               <td>
                 {{s?.startDate  | date: 'dd/MM/yyyy'}}
               </td>
@@ -57,12 +59,13 @@
               </td>
 
 
+
               <td>
                 <div class="d-flex">
-                  <button
+                <!--  <button
                     (click)="openModalEditSale(s)"
                     style="padding: 3px 8px"
-                    class="btn btn-primary mx-1"><i class="fa fa-pencil"></i></button>
+                    class="btn btn-primary mx-1"><i class="fa fa-pencil"></i></button>-->
                   <button (click)="openModalDeleteSale(s)" style="padding: 3px 8px" class="btn btn-danger mx-1"><i class="fa fa-trash"></i></button>
                 </div>
               </td>

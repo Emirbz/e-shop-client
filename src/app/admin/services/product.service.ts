@@ -33,8 +33,8 @@ export class ProductService {
 
     return this.http.delete<Product>(`${this.productAPI}/${id}`);
   }
-  getAllProducts(): Observable<any> {
+  getAllProducts(id): Observable<any> {
 
-    return this.http.get<any>(`${this.productAPI}`);
+    return this.http.get<any>(`${this.productAPI}/category/${id}`);
   }
 }

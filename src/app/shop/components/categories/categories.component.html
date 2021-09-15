@@ -31,9 +31,9 @@
             <img  [src]="c?.picture?.url" class="img-fluid blur-up lazyload bg-img" alt="">
           </div>
           <div class="collection-content">
-            <h4>(20 products)</h4>
+<!--            <h4>(20 products)</h4>-->
             <h3>{{c?.name}}</h3>
-            <a href="category-page.html" class="btn btn-outline">shop now !</a>
+            <a [routerLink]="['/shop/products',c?.id]" class="btn btn-outline">shop now !</a>
           </div>
         </div>
       </div>

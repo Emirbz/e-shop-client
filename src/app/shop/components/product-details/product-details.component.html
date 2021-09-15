@@ -72,7 +72,9 @@
             <div *ngIf="loadedProduct?.sale" class="border-product">
               <h6 class="product-title">Promotion expire dans</h6>
 
-              <span class="badge badge-warning" style="color: white;padding: 6px 62px;font-size: 14px"> {{daysLeft(loadedProduct.sale)}} jours</span>
+              <span class="badge badge-warning"
+                    style="color: white;padding: 6px 62px;font-size: 14px"> {{daysLeft(loadedProduct.sale)}}
+                jours</span>
             </div>
             <form #ngForm="ngForm" [formGroup]="cartFormGroup">
               <div id="selectSize" class="addeffect-section product-description border-product">
@@ -139,40 +141,43 @@
 
 
 <!-- product section start -->
-<section class="section-b-space ratio_asos">
+<section *ngIf="loadedProducts?.length>0" class="section-b-space ratio_asos">
   <div class="container">
     <div class="row">
       <div class="col-12 product-related">
-        <h2>related products</h2>
+        <h2>Produits similaires</h2>
       </div>
     </div>
     <div class="row search-product">
       <div class="col-xl-2 col-md-4 col-6">
-        <div class="product-box">
-          <div class="img-wrapper">
-            <div class="front">
-              <a href="#"><img src="assets/images/pro3/33.jpg"
-                               class="img-fluid blur-up lazyload bg-img" alt=""></a>
+        <div *ngFor="let p of loadedProducts" class="product-box">
+          <ng-container *ngIf="p?.id!==loadedProduct?.id">
+            <div class="img-wrapper">
+              <div *ngIf="p?.pictures.length>0" class="front">
+                <a><img [src]="p?.pictures[0].url"
+                        class="img-fluid blur-up lazyload bg-img" alt=""></a>
+              </div>
+              <div *ngIf="p?.pictures.length>1" class="back">
+                <a><img [src]="p?.pictures[0].url"
+                        class="img-fluid blur-up lazyload bg-img" alt="">
+                </a>
+              </div>
+              <div class="cart-info cart-wrap">
+                <button title="Add to cart"><i class="ti-shopping-cart"></i></button>
+
+              </div>
             </div>
-            <div class="back">
-              <a href="#"><img src="assets/images/pro3/34.jpg"
-                               class="img-fluid blur-up lazyload bg-img" alt=""></a>
-            </div>
-            <div class="cart-info cart-wrap">
-              <button title="Add to cart"><i class="ti-shopping-cart"></i></button>
+            <div class="product-detail">
+              <a [routerLink]="['/shop/products/details',p.id]">
+                <h6>{{p?.name}}</h6>
+              </a>
+              <h4>{{p?.price}}DT</h4>
 
             </div>
-          </div>
-          <div class="product-detail">
-            <div class="rating"><i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-              class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i></div>
-            <a href="product-page(no-sidebar).html">
-              <h6>Slim Fit Cotton Shirt</h6>
-            </a>
-            <h4>$500.00</h4>
-
-          </div>
+          </ng-container>
         </div>
+
+
       </div>
 
     </div>

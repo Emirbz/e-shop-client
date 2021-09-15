@@ -18,7 +18,8 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
   quantityToCart = 0;
   productToCart: { product: Product, showToast: boolean } = {product: undefined, showToast: false};
   cartFormGroup: FormGroup;
-
+  productsHasBeenLoaded = false;
+  loadedProducts: Product[] = [];
 
   constructor(private formBuilder: FormBuilder, private productService: ProductService, private activeRouter: ActivatedRoute,
               private cartService: CartService) {
@@ -27,7 +28,19 @@ export class ProductDetailsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
 
     this.loadSingleProduct().then();
+    this.loadProducts();
   }
+
+  loadProducts() {
+    this.productsHasBeenLoaded = false;
+    this.productService.getAllProducts(0).subscribe(p => {
+      this.loadedProducts = p;
+      this.productsHasBeenLoaded = true;
+    }, error => {
+      this.productsHasBeenLoaded = true;
+    });
+  }
+
 
   ngAfterViewInit(): void {
 
